@@ -87,3 +87,74 @@ console.log(x); /* the answer displayed is "undefined"
                 e.g. */
 typeof "james" // is a string
 typeof Math //is an object etc.
+
+// Type conversions
+/*
+ToString:
+    - happens when we need string form of a value.
+*/
+let yearOfBirth = 1982
+yearOfBirth = String(yearOfBirth)
+console.log(typeof(yearOfBirth))// results to string
+/*
+
+ToBoolean:
+    - can be performed with a call to Boolean()
+Rules: - values like 0, empty string, null, undefined and NaN results to false.
+       - other values result to true.
+examples:
+*/
+let number = 1
+number = Boolean(number)
+console.log(number)// results to true
+
+let number = 0
+number = Boolean(number)
+console.log(number)// results to false
+
+let number = ""
+number = Boolean(number)
+console.log(number)// results to false
+
+let someSpaces = "   "
+someSpaces = Boolean(someSpaces)
+console.log(someSpaces)// results to true
+
+// However string with 0 results to true
+let number = "0"
+number = Boolean(number)
+console.log(number)// results to true
+
+/*
+ToNumber: it happens in mathematical functions and expressions automatically.
+e.g. 
+*/
+console.log( "10" / "5" )
+// Strings are converted to numbers 
+
+let salary = "300,000"
+console.log(typeof(salary))// results to string.
+salary = Number(salary)
+console.log(typeof(salary))// results to number
+
+//if the string is not a valid number it results to NaN. e.g.
+let fullName = "James Kariuki Kaguna"
+fullName = Number(fullName)
+console.log(fullName)// results to NaN
+
+let poBox = "747tharaknithi"
+poBox = Number(poBox)
+console.log(poBox)// results to NaN
+
+let nothing = null
+nothing = Number(nothing)
+console.log(nothing)//results to 0. However, when I assign a variable with null in JSFiddle, it opens 
+                    // a new tab.?????????????
+
+let something = true
+something = Number(something)
+console.log(something)// results to 1
+
+let something = false
+something = Number(something)
+console.log(something)// results to 0
