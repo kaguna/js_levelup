@@ -158,3 +158,101 @@ console.log(something)// results to 1
 let something = false
 something = Number(something)
 console.log(something)// results to 0
+
+
+/*
+OPERATORS
+    Operand: - this is the quantity on which the operation is to be done.
+    e.g.
+*/
+    console.log(12 - 4) // 12 and 4 are operands while (-) is the operator
+/*
+    Unary:- when an operator has a single operand
+        e.g.
+*/
+    let number = 3
+    number = - number
+    console.log( number ) // the result is -3. The operand is 3 which is neagated by operator (-)
+/*
+    Binary: - when an operator has two operands.
+    e.g.
+*/
+    let yearOfBirth = 1920
+    let currentYear = 2019
+    age = currentYear - yearOfBirth
+    console.log( age ) // yearOfBirth and currentYear are the two operands.
+/*
+NB: (+) operator has other special usage beside summing numbers in javascript.
+    It merges(concatenates) strings.
+*/
+    let firstName = "James"
+    let secondName = "Kaguna"
+    let fullName = firstName + secondName
+    console.log(fullName)// this returns JamesKaguna.
+    //However, to have a space between the two names, you can concatenate a space using a plus
+    console.log( firstName+" "+secondName )// Prints James Kaguna.
+
+    console.log(5 + 6 + "6") 
+    // this sums the numbers to get 11 and merges with the string "6" to get 116
+
+/*
+    Numeric Conversion by unary +
+    if the operand is not a number, the unary plus converts it into a number.
+    It does the same thing as Number(...) but it's shorter.
+    e.g.
+*/
+    console.log( +false) // result is 0
+    console.log( +true) // result is 1
+    console.log( +"" )// result 0
+
+    let potatoes = "9"
+    let tomatoes = "6"
+    console.log( +potatoes + +tomatoes )// result is 15
+/*
+    Remaider % - this is the remainder after division
+    e.g.
+*/
+    console.log( 10 % 2 )// the remainder is zero
+
+/*
+    Exponentiation ** - Multiplying a number by itself the number of times incated
+    e.g.
+*/
+    console.log( 10 ** 3 )// 10 * 10 * 10 = 1000
+    console.log( 27 ** (1/3) )// cuberoot of 27 = 3
+
+/*
+    Increment/Decrement - increasing or decreasing a number by one which is commonly used.
+
+    Increment ++
+*/
+    let hours = 5;
+    hours++;// same as hours = hours + 1
+    console.log( hours )// result is 6
+/*
+    Decrement --
+*/
+    let hours = 5;
+    hours--;// same as hours = hours - 1
+    console.log( hours )// result is 4
+/*
+    SOME EXPLANATIONS REQUIRED HERE.
+    We need the prefix if we'd like to increase the value and immediately use the result of the operator.
+*/
+    let counter = 0
+    console.log( ++counter )// the result 1
+/*
+    SOME EXPLANATIONS REQUIRED HERE.
+    We need the postfix if we'd like to increment the value but use the previous value.
+*/
+    let counter = 0
+    console.log( counter++ )// the result 0
+    
+/*
+    Comma: - It allows one to evaluate several expressions dividing them with a comma.
+        e.g.
+*/
+    console.log( 10 * 8, 5 + 3, 20 - 11)// this results to 9
+    // All the other operations are thrown away and the last one is taken. 
+    // It is one of the most rarest and most unusual operators used to write shorter code.
+    // Such tricks are used in many JavaScript frameworks.
