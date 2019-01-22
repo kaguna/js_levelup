@@ -256,3 +256,93 @@ NB: (+) operator has other special usage beside summing numbers in javascript.
     // All the other operations are thrown away and the last one is taken. 
     // It is one of the most rarest and most unusual operators used to write shorter code.
     // Such tricks are used in many JavaScript frameworks.
+
+
+/*
+COMPARISONS
+    The result of comparison is a boolean.(Either TRUE or FALSE)
+    Comparison Operators:
+        Greater(>)/less(<) than
+        Greater/less than or equals (>=) or (<=)
+        Equals ( == )
+        Not equals ( != )
+*/
+    let teamAPoints = 36
+    let teamBPoints = 48
+    console.log( teamAPoints > teamBPoints )// false.
+    console.log( teamAPoints == teamBPoints )// false.
+    console.log( teamAPoints < teamBPoints )// true.
+    console.log( teamAPoints != teamBPoints )// true.
+/*
+    String Comparisons
+        To determine whether the string is greater than the other, Javascript 
+        uses "dictionary" or lexicographical order. Not a real dictionary but Unicode order.
+        It compares letter by letter in a string.
+        Cases also matters i.e. Letter A and a are not equal. Lowercase 'a' is greater than Upppercase A.
+        This is because lowercase character has a greater index in the internal encoding table JavaScript uses
+        (Unicode)  
+        e.g.
+*/
+        console.log( 'A' > 'a' )//false
+        console.log( 'blood' > 'blook' ) //false
+/*
+    Special cases
+*/
+    console.log( true == 1 )//true
+    console.log( false == 0 )//false
+
+    let firstNumber = 0
+    console.log( Boolean(number) )//false
+
+    let secondNumber = '0'
+    console.log( Boolean(number) )//true
+
+    console.log( firstNumber == secondNumber )//true
+/*
+    Strict equality(===)
+        A regular equality check (==) has a problem. It cannot differentiate 1 from true or 0 from false.
+        Regular equality converts operands to numbers.
+        Strict equality operator checks the equality without type conversion.
+        e.g.
+*/
+        console.log( 0 == false)// true
+        console.log( '' == false)// true
+        console.log( 1 == true)// true
+
+        // Strict conversion
+        console.log( 0 === false )//false
+/*
+    Comparison with null and undefined
+        Strict equality - values are defferent
+        e.g.
+*/
+        console.log( null === undefined ); // false
+/*
+        Regular equality - they are equal by a special rule "Sweet couple". They are equal to each other
+            in sense of == but not any other value.  
+*/
+        console.log( null == undefined ); // true
+/*
+     For maths and other comparisons null/undefined are converted to numbers i.e.
+     null becomes 0 and undefined becomes NaN.
+     Undefined should not be compared to other values.
+     e.g.
+*/
+    console.log( undefined > 0 ); // false 
+    console.log( undefined < 0 ); // false
+    console.log( undefined == 0 ); // false
+/*
+    Reasons behind the above:
+        Comparison wit < or > return false coz undefined gets converted to NaN and NaN 
+            is a special numeric value which returns false for all comparisons
+        Equality check returns false coz undefined only equals null and no other value.
+*/
+/*
+    Questions:
+        1. why is:
+            console.log("2" > "12") true?
+        2. Incase we have a mixture of numbers and letters i.e.
+            console.log( '2ac' > '2a3' ). Why does it result to true.
+
+            Again, dictionary comparison, first char of "2" is greater than the first char of "1"
+*/
