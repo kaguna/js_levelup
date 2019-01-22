@@ -346,3 +346,35 @@ COMPARISONS
 
             Again, dictionary comparison, first char of "2" is greater than the first char of "1"
 */
+
+
+/*
+Interaction: alert, prompt, confirm
+    alert: - shows a message and pauses script execution until the user presses "OK"
+        e.g. 
+*/
+    alert('Some good message.')
+/*
+    Prompt: - It shows a modal window with a text message, an input and OK/CANCEL buttons.
+    it has two arguements:-
+        Title - text to show the visitor.
+        default - [optional], shows the initial value of the text field.
+    If you click cancel, it returns null.
+    e.g.
+*/
+    let yearOfBirth = prompt('Which year were you born?', 1920);
+    console.log(`You were born in ${yearOfBirth}`);
+    // However the second part of the aptions is not optional in IE. If not provided
+    //  it will insert the text undefined into the prompt.
+/*
+    Confirm: - It shows a modal window with a question and two buttons: OK and CANCEL.
+        OK results to true
+        Cancel results to false.
+*/
+    let removeData = confirm('Would you like to delete?')
+    console.log(removeData)
+/* 
+    All these methods pause script execution and blocks the user from iteracting with 
+    the rest of the page until the window has been dismissed.
+    These look and position of the modals cannot be customized.
+*/ 
