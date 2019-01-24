@@ -378,3 +378,64 @@ Interaction: alert, prompt, confirm
     the rest of the page until the window has been dismissed.
     These look and position of the modals cannot be customized.
 */ 
+
+
+/*
+
+LOGICAL OPERATORS
+    There three logical operators:  
+    - OR (||)
+        If any of its arguments are true, it returns true, otherwise it returns false.
+        A chain of OR (||) returns the first truthy value or the last one if no such value is found
+        There are four combinations:
+*/
+    console.log( true || true );   // true
+    console.log( false || true );  // true
+    console.log( true || false );  // true
+    console.log( false || false ); // false
+    console.log( null || 2 || undefined ); // the first truthy value is 2
+    console.log( alert(1) || 2 || alert(3) ); //????? 1 then 2
+    //e.g.
+    let age = 32
+    let hasIdCard = false
+    if ( age > 30 || hasIdCard ) {
+        console.log('You are an adult.')
+    }
+
+    let a; // undefined (falsy value)
+    let b = null; // null (falsy value)
+    let c = undefined; // undefined (falsy value)
+    let d = 4; // number (NOT falsy)
+    let e = 'five'; // assigment short circuits before reaching here
+    let f = a || b || c || d || e;
+    console.log(f); // the first truthy value is 4
+/*
+    - AND (&&)
+       It returns true if both operands are truthy and false otherwise.
+       It finds the first falsy value.
+       Here are the four combinations:
+*/
+    console.log( true && true );   // true
+    console.log( false && true );  // false
+    console.log( true && false );  // false
+    console.log( false && false ); // false
+    console.log( 1 && null && 2 ); // the first falsy value is null
+    console.log( alert(1) && alert(2) ); //??????? 1 then undefined
+    //e.g.
+    let age = 32
+    let hasIdCard = true
+    let inARelationship = true
+    if ( age > 30 && hasIdCard && inARelationship ) {
+        console.log('You should get married.')
+    }
+/*
+    - NOT (!)
+        Converts the operand to boolean type: true/false and returns the inverse value.
+        The precedence of NOT ! is the highest of all logical operators, so it always executes 
+            first, before && or ||.
+        e.g.
+*/
+    console.log( !true ); // false
+    console.log( !0 ); // true
+    console.log( !!true ); // true
+    console.log( !!0 ); // false
