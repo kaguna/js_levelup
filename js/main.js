@@ -554,3 +554,57 @@ SWITCH STATEMENT
         day = "Invalid day";
         console.log(day)
     }
+/*
+Function expressions and arrows
+    A function is a value representing an “action”
+    I have used a function previously. That syntax is called Function declaration i.e.
+        a function declared as a separate statement, in the main code flow.
+*/
+    function computeAge(currentYear, yearOfBirth) {
+        let age = currentYear - yearOfBirth;
+
+        return age;
+    }
+    console.log( computeAge(2019, 1920) );
+/*
+    However, there is another syntax of creating methods which is called Function Expression i.e.
+        a function created inside an expression or inside another syntax construct.
+*/
+    let computeAge = function (currentYear, yearOfBirth) {
+        age = currentYear - yearOfBirth;
+        return age
+    };
+    console.log( computeAge(2019, 1920) );
+/*
+    A function is a value stored in the variable no matter how it is declared.
+    A Function Expression is used inside the statement hence it is recommended to have a semicolon
+        at the end of statements no matter the value.
+     
+    When should you choose Function Declaration versus Function Expression: 
+        As a rule of thumb, when we need to declare a function, the first to consider 
+        is Function Declaration syntax. It gives more freedom in how to organize our code, 
+        because we can call such functions before they are declared.
+
+    Arrow functions
+        very simple and concise syntax for creating functions.
+        syntax: let func = (arg1, arg2, ...argN) => expression
+        example.
+*/
+    // Several arguments
+    let computeAge = (currentYear, yearOfBirth) => currentYear - yearOfBirth;
+    console.log( computeAge(2019, 1920) );
+
+    // One argument
+    let computeAge = yearOfBirth => 2019 - yearOfBirth; // Here parentheses can be ommited.
+    console.log( computeAge(1920) );
+
+    // No argument
+    let computeAge = () => 2019 - 1920; // Empty parentheses must be included
+    console.log( computeAge() );
+
+    // Multiline arrow functions
+    let computeAge = (currentYear, yearOfBirth) => { // the curly brace opens a multiline function
+        let age = currentYear - yearOfBirth; 
+        return age // if we use curly braces, use return to get results
+    };
+    console.log( computeAge(2019, 1920) ); // 99
