@@ -484,3 +484,73 @@ LOOPS
             console.log( minutes )
             minutes--
         } while (minutes >= 0) //when minutes becomes 0, the condition becomes falsy, and the loop stops
+
+
+/*
+SWITCH STATEMENT
+    It can replace multiple if checks.
+    It has one or more case blocks and an optional default.
+    e.g.
+*/
+    switch (new Date().getDay()) { // this returns the integer of the day current day.
+        case 0:
+        day = "Sunday";
+        console.log(day)
+        break;
+        case 1:
+        day = "Monday";
+        console.log(day)
+        break;
+        case 2:
+        day = "Tuesday";
+        console.log(day)
+        break;
+        case 3:
+        day = "Wednesday";
+        console.log(day)
+        break;
+        case 4:
+        day = "Thursday";
+        console.log(day)
+        break;
+        case 5:
+        day = "Friday";
+        console.log(day)
+        break;
+        case 6:
+        day = "Saturday";
+        console.log(day)
+        default:
+        day = "Invalid day";
+        console.log(day)
+    }
+
+    // Equivalent if
+
+    let dateNumber = new Date().getDay();
+    let day;
+    if ( dateNumber === 0 ){
+        day = "Sunday";
+        console.log(day)
+    } else if (dateNumber === 1 ){
+        day = "Monday";
+        console.log(day)
+    } else if (dateNumber === 2 ){
+        day = "Tuesday";
+        console.log(day)
+    } else if (dateNumber === 3 ){
+        day = "Wednesday";
+        console.log(day)
+    } else if (dateNumber === 4 ){
+        day = "Thursday";
+        console.log(day)
+    } else if (dateNumber === 5 ){
+        day = "Friday";
+        console.log(day)
+    } else if (dateNumber === 6 ){
+        day = "Saturday";
+        console.log(day)
+    } else {
+        day = "Invalid day";
+        console.log(day)
+    }
