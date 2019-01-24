@@ -439,3 +439,48 @@ LOGICAL OPERATORS
     console.log( !0 ); // true
     console.log( !!true ); // true
     console.log( !!0 ); // false
+
+
+/*
+LOOPS
+    There are three types of loops:
+        While loop
+            The condition is checked before each iteration.
+*/
+        let minutes = 0
+        while (minutes <= 7) { //when minutes becomes 7, the condition becomes falsy, and the loop stops
+            console.log( minutes )
+            minutes++
+        }
+
+/*
+        for loop
+            The condition is checked before each iteration
+*/
+        let minutes = 0;
+        for (minutes = 0; minutes <= 7; minutes++) { // use an existing variable
+        console.log(minutes); // 0, 1, 2, 3, 4, 5, 6, 7
+        }
+        console.log(minutes); // 3, visible, because declared outside of the loop
+
+
+        for (let minutes = 7; minutes >= 0; minutes++) { // inline variable declaration
+        console.log(minutes); // 7, 6, 5, 4, 3, 2, 1, 0
+        }
+        console.log(minutes); // 0, visible, because declared outside of the loop
+
+        let minutes = 0;
+        for (; minutes <= 7; minutes++) { // skipping parts
+        console.log(minutes); // 0, 1, 2, 3, 4, 5, 6, 7
+        }
+        console.log(minutes); // 3, visible, because declared outside of the loop
+
+/*
+        do...while loop
+            The condition is checked after each iteration.
+*/
+        let minutes = 7
+        do { 
+            console.log( minutes )
+            minutes--
+        } while (minutes >= 0) //when minutes becomes 0, the condition becomes falsy, and the loop stops
