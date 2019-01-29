@@ -206,3 +206,108 @@ OBJECTS
 
     // To make a “real copy” (a clone) we can use Object.assign or javascript 
     // library called lodash with method called _.cloneDeep(obj).
+
+
+
+/*
+Garbage collection
+    Memory management in JavaScript is performed automatically and invisibly to us.
+    The main concept of memory management in JavaScript is reachability.
+    Below are set of inherently reachable values and cannot be deleted:
+    1. Local variables and parameters of the current function.
+    2. Variables and parameters for other functions on the current chain of nested calls.
+    3. Global variables.
+    The values are called "roots".
+    If there’s an object in a local variable, and that object has a property referencing 
+    another object, that object is considered reachable. And those that it references are also reachable.
+     Garbage collector is a background process in the JavaScript engine. It monitors all objects and removes 
+     those that have become unreachable.
+     e.g.
+
+*/
+    // carFeatures has a reference to the object
+    let carFeatures = { 
+        name: 'Forester', 
+        make: 'Subaru',
+        miliage: 2000 
+    }
+    // if the value of the carFeatures is overwritten, the reference is lost.
+    let carFeatures = null
+    // now { name: 'Forester', make: 'Subaru', miliage: 2000 } becomes unreachable
+    // There’s no way to access it, no references to it. Garbage collector will junk the data and free the memory.
+/*
+    Two references
+*/
+    let carFeatures = { 
+        name: 'Forester', 
+        make: 'Subaru',
+        miliage: 2000 
+    };
+
+    let carDetails = carFeatures;
+    // then 
+    let carFeatures = null
+    // Then the object is still reachable via carDetails global variable, so it’s in memory.
+
+/*
+    Interlinked objects
+*/
+    function marry(man, woman) {
+        woman.husband = man;
+        man.wife = woman;
+    
+        return {
+        father: man,
+        mother: woman
+        }
+    }
+    
+    let family = marry({
+        name: "John"
+    }, {
+        name: "Ann"
+    });
+
+/*
+    Function marry “marries” two objects by giving them references to each other and 
+    returns a new object that contains them both.
+    All objects are reachable as per now.
+    if we delete two references:
+*/
+    delete family.father;
+    delete family.mother.husband;
+    // if we delete one of the two references, all objects will be still reachable.
+    // But if we delete both, then we can see that John has no incoming reference any more.
+    // Outgoing references do not matter. Only incoming ones can make an object reachable. So, John 
+    // is now unreachable and will be removed from the memory with all its data that also became unaccessible.
+
+/*
+    Unreachable Island
+        It is possible that the whole island of interlinked objects becomes 
+        unreachable and is removed from the memory.
+        i.e.
+*/
+    family = null;
+
+    // The former "family" object has been unlinked from the root, there’s no reference 
+    // to it any more, so the whole island becomes unreachable and will be removed.
+/*
+    Internal algorithms
+        The basic garbage collection algorithm is called “mark-and-sweep”.
+        Garbage collection steps performed regularly:
+        1. It takes roots and marks/remembers them.
+        2. Then it visits and marks all references from them.
+        3. Then it visits marked objects and marks their references not to visit them 
+            again in the future.
+        4. Continues until there are unvisited references (reachable from the roots).
+        5. All objects except marked ones are removed.
+
+    JavaScript engines optimizations
+        1. Generational collection: - objects are split in two sets i.e. “new ones” and “old ones”.
+            They appear to do their job and die fast and the one that remains are the old.
+        2. Incremental collection: - the engine tries to split the garbage collection into pieces 
+            executed one by one, separately. That requires some extra bookkeeping between them to track
+             changes, but we have many tiny delays instead of a big one.
+        3. Idle-time collection: - the garbage collector tries to run only while the CPU is idle, 
+            to reduce the possible effect on the execution.
+*/
