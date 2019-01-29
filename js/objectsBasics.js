@@ -311,3 +311,114 @@ Garbage collection
         3. Idle-time collection: - the garbage collector tries to run only while the CPU is idle, 
             to reduce the possible effect on the execution.
 */
+
+/*
+Symbol type
+    By specification, object property keys may be either of string type, or of symbol type.
+    In the earlier chapters we have worked with string types.
+
+    Symbols: - is a primitive type for unique identifiers.
+    A value of this type can be created using Symbol()
+    Their only intended use is to avoid name clashes between properties.
+    NB: Symbols are just a slightly different way to attach properties to an Object - you could easily provide 
+            the well-known symbols as standard methods, just like "Object.prototype.hasOwnProperty" which appears 
+            in everything that inherits from Object (which is basically everything).
+*/
+    const mySymbol = Symbol('mySymbol'); //mySymbol inside the symbol factory function is called symbol name.
+    //mostly used for debugging purposes.
+    console.log(typeof mySymbol)//symbol
+
+/*
+    Symbols are guaranteed to be unique. Even if we create many symbols with the same description, they are different values. 
+    The description is just a label that doesn’t affect anything.
+*/
+    let red = Symbol("color");
+    let blue = Symbol("color");
+
+    console.log(red == blue); // false
+
+    // Symbols don’t auto-convert to a string
+    alert(red)// TypeError: Cannot convert a Symbol value to a string
+    // To correct this we, need to call .toString() on it
+    alert(red.toString()) // Symbol(color), now it works
+
+    // HOWEVER, with console.log it works fine. There is no error i.e.
+    console.log(red);// Symbol(color)
+    // QUESTION?????
+
+/*
+    Hidden Properties
+        “Hidden” object properties. If we want to add a property into an object that “belongs” to another script 
+        or a library, we can create a symbol and use it as a property key. A symbolic property does not appear 
+        in for..in, so it won’t be occasionally listed. Also it won’t be accessed directly, because another script does 
+        not have our symbol, so it will not occasionally intervene into its actions.
+*/
+    let carFeatures = { 
+        name: "Subaru",
+        make: "Forester"
+        };
+    let miliage = Symbol("miliage");
+
+    carFeatures[miliage] = 2000;
+    console.log( carFeatures[miliage] ); // we can access the data using the symbol as the key
+    
+    // if we used string instead of a symbol, there would be a conflict.
+    carFeatures.miliage = 2000;
+    // the script uses miliage property
+    
+    // if the script later uses the miliage, it will overwrite the first miliage which was not our intention.
+    carFeatures.miliage = 3000;
+    console.log( carFeatures.miliage );// prints 3000
+
+/*
+Symbols in a literal
+    If we want to use a symbol in an object literal, we need square brackets.
+*/
+    let miliage = Symbol("miliage");
+    let carFeatures = { 
+        name: "Subaru",
+        make: "Forester",
+        [miliage]: 2000 // not just "miliage: 2000"
+        };
+    console.log( carFeatures[miliage] );// 2000
+    // That’s because we need the value from the variable miliage as the key, not the string “miliage”.
+/*
+    Symbols are skipped by for…in
+*/
+    for (let key in carFeatures) alert(key); // name, make (no symbols)
+
+    // the direct access by the symbol works
+    alert( "Miliage: " + carFeatures[miliage] );
+    // In contrast, Object.assign copies both string and symbol properties.
+
+/*
+    Global symbol
+        Symbols are always different values, even if they have the same name. If we want same-named symbols to be equal, 
+        then we should use the global registry: Symbol.for(key) returns (creates if needed) a global symbol with key as 
+        the name. Multiple calls of Symbol.for return exactly the same symbol.
+*/
+        let red = Symbol.for("color");
+        let blue = Symbol.for("color");
+
+        console.log(red == blue); // true
+
+/*
+    Symbol.keyFor
+        For global symbols, not only Symbol.for(key) returns a symbol by name, but there’s a reverse call: Symbol.keyFor(sym), 
+        that does the reverse: returns a name by a global symbol.
+        e.g.
+*/
+        // get name from symbol
+        let firstSymbol = Symbol.for("red");
+        let secondSymbol = Symbol.for("blue");
+
+        console.log( Symbol.keyFor(firstSymbol) ); // red
+        console.log( Symbol.keyFor(secondSymbol) ); // blue
+
+/*
+        System Symbols
+            There are many system symbols used by JavaScript which are accessible as Symbol.*. We can use them to alter 
+            some built-in behaviors. 
+            e.g. use Symbol.iterator for iterables, 
+                 Symbol.toPrimitive to setup object-to-primitive conversion.
+*/
