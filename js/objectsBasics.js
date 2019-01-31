@@ -422,3 +422,129 @@ Symbols in a literal
             e.g. use Symbol.iterator for iterables, 
                  Symbol.toPrimitive to setup object-to-primitive conversion.
 */
+
+/*
+Object methods, "this"
+        The value of this is defined at run-time.
+        Functions that are stored in object properties are called methods. They allow objects to act like object.method() and
+        can reference the objects as this.
+        An example to access the object, using this keyword.
+*/
+    let car = {
+        name: "Mercedez Benz",
+        modelYear : 2017,
+        fullDescription : function() {
+            console.log(this.name + " " + this.modelYear+" model");
+        }
+    };
+    car.fullDescription(); // Mercedez Benz 2017 model
+    
+    //Method shorthand
+    let car = {
+        name: "Mercedez Benz",
+        modelYear : 2017,
+        fullDescription() {
+            console.log(this.name + " " + this.modelYear+" model");
+        }
+    };
+    car.fullDescription(); // Mercedez Benz 2017 model
+
+    // In the example above, during execution of car.fullDescription(), the value of this will be car.
+    // It is possiblee to access object without this i.e. referencing by outer variable in our case car e.g.
+    let car = {
+        name: "Mercedez Benz",
+        modelYear : 2017,
+        fullDescription() {
+            console.log(car.name + " " + car.modelYear+" model"); // car instead of this
+        }
+    };
+    car.fullDescription(); // Mercedez Benz 2017 model
+/*
+    this is unreliable coz if we decide to copy car into another variable e.g.
+    motorCar = car and overwrite car with something else, wrong object will be accessed. i.e.
+*/
+    let car = {
+        name: "Mercedez Benz",
+        modelYear : 2017,
+        fullDescription() {
+            console.log(car.name + " " + car.modelYear+" model"); // car instead of this
+        }
+    };
+    motorCar = car ;
+    car = null
+    motorCar.fullDescription(); //  TypeError: Cannot read property 'name' of null
+    // If this is used instead of car, the code would work.
+
+/*
+    “this” is not bound
+        The value of this is evaluated during the run-time. And it can be anything. i.e. 
+        the same function may have different “this” when called from different objects e.g.
+*/
+    let car = { name: "Subaru" };
+    let motorCycle = { name: "Boxer" };
+
+    function buy() {
+        this.name;
+    }
+    // use the same functions in two objects
+    car.f = car;
+    motorCycle.f = motorCycle;
+    // these calls have different this
+    // "this" inside the function is the object "before the dot"
+    car.f(); // Subaru  (this == car)
+    motorCycle.f(); // Boxer  (this == motorCycle)
+
+    // Admin (dot or square brackets access the method – doesn't matter) i.e.
+    car['f']();
+    motorCycle['f']()
+/*
+    The concept of run-time evaluated this has both pros and cons. On the one hand, a function
+     can be reused for different objects. On the other hand, greater flexibility opens a place for mistakes.
+
+*/
+/*
+    Internals: Reference Type
+        Javascript has 5 data types that are passed by value: Boolean, null, undefined, String, 
+        and Number (primitive types).
+
+        It also has 3 data types that are passed by reference: Array, Function, and Object. 
+        (technically Objects)
+
+        Variables that are assigned a non-primitive value are given a reference to that value.
+        That reference points to the object’s location in memory.
+
+        Objects are created at some location in your computer’s memory. When we write arr = [], 
+        we’ve created an array in memory. What the variable arr receives is the address, the location, 
+        of that array. hence 
+*/
+        let arr1 = ['Hi!'];
+        let arr2 = ['Hi!'];
+        console.log(arr1 === arr2); // false
+
+/*
+        The value of Reference Type is a three-value combination (base, name, strict), where:
+            - base is the object.
+            - name is the property.
+            - strict is true if use strict is in effect.
+            i.e. (car, buy, true)
+        When parentheses () are called on the Reference Type, they receive the full information about 
+        the object and its method, and can set the right this (=car in this case).
+*/
+
+/*
+    Arrow functions have no “this”
+        Arrow functions are special: they don’t have their “own” this. If we reference this from such a 
+        function, it’s taken from the outer “normal” function.
+*/
+
+        let car = {
+            name: "Mercedez Benz",
+            modelYear : 2017,
+            fullDescription() {
+                let buy = () =>  console.log(this.name + " " + this.modelYear+" model"); 
+                buy()
+            }
+        };
+        car.fullDescription(); // Mercedez Benz 2017 model
+        // That’s a special feature of arrow functions, it’s useful when we actually do 
+        //  not want to have a separate this, but rather to take it from the outer context.
