@@ -548,3 +548,65 @@ Object methods, "this"
         car.fullDescription(); // Mercedez Benz 2017 model
         // That’s a special feature of arrow functions, it’s useful when we actually do 
         //  not want to have a separate this, but rather to take it from the outer context.
+
+
+/*
+Object to primitive conversion
+    In objects there is no to boolean conversion beacause all objects are TRUE in a boolean context.
+    So there are only string and numeric conversions. 
+
+    ToPrimitive:
+        The object-to-primitive conversion is called automatically by many built-in functions 
+        and operators that expect a primitive as a value.
+        Depending on the context, the conversion has a so-called “hint”.
+        There are three variants:
+            - string -> When an operation expects a string, for object-to-string conversions, like alert
+            - number -> When an operation expects a number, for object-to-number conversions, like maths
+            - default -> when the operator is “not sure” what type to expect. rare cases.
+        
+            To do the conversion, JavaScript tries to find and call three object methods:
+                - Call obj[Symbol.toPrimitive](hint) if the method exists,
+                - Otherwise if hint is "string"
+                    try obj.toString() and obj.valueOf(), whatever exists.
+                - Otherwise if hint is "number" or "default"
+                    try obj.valueOf() and obj.toString(), whatever exists.
+    
+    Symbol.toPrimitive:
+        Built-in symbol that should be used to name the conversion method i.e. 
+
+        obj[Symbol.toPrimitive] = function(hint) {
+            // return a primitive value
+            // hint = one of "string", "number", "default"
+        }
+
+        or
+        obj[Symbol.toPrimitive](hint) {
+            // return a primitive value
+            // hint = one of "string", "number", "default"
+        }
+
+    If there’s no Symbol.toPrimitive then JavaScript tries to find them and try in the order:
+        - toString -> valueOf for “string” hint.
+        - valueOf -> toString otherwise.
+
+    NB: In the absence of Symbol.toPrimitive and valueOf, toString will handle all primitive conversions.
+        Mathematical operations (except binary plus) perform ToNumber conversion.
+        Binary plus checks the primitive – if it’s a string, then it does concatenation, 
+            otherwise it performs ToNumber and works with numbers.
+    Example:
+*/
+
+    let details = {
+        name: "James",
+        age: 90,
+    
+        [Symbol.toPrimitive](hint) {
+        alert(`hint: ${hint}`);
+        return hint == "string" ? this.name : this.age;
+        }
+    };
+    
+    // conversions:
+    console.log(`${details}`); // hint: string -> "James"
+    console.log(+details); // hint: number -> 90
+    console.log(details + 10); // hint: default -> 100
