@@ -610,3 +610,57 @@ Object to primitive conversion
     console.log(`${details}`); // hint: string -> "James"
     console.log(+details); // hint: number -> 90
     console.log(details + 10); // hint: default -> 100
+
+/*
+    Constructor, operator "new"
+        Used to create multiple similar objects.(to implement reusable object creation code)
+        Conventions:
+            - Named with a capital letter first.
+            - Should be executed only with new operator.
+    Example:
+*/
+    function Cardetails(model) {
+        this.model = model;
+        this.manufactureYear = '2017'
+        this.engineCapacity = '2500cc'
+    }
+    let car = new Cardetails('Tesla')
+    console.log(car.model)
+    console.log(car.manufactureYear)
+    console.log(car.engineCapacity)
+/*
+    NB: Any function can be used as a constructor. Capitalization is just a common agreement 
+        to make it clear that a function is to be run with new.
+
+    Return from constructors:
+        Constructors don't have a return value; Their task is to write all necessary stuff into this, 
+            and it automatically becomes the result.
+        Incase we have a return, it overrides this and returns the object
+    Example:
+*/
+    function Car() {
+
+        this.model = "Tesla";
+    
+        return { model: "MacX" };  // <-- returns an object
+        // Incase the return is empty, it returns this.
+    }
+    
+    console.log( new Car().model );  // MacX, got that object 
+/*
+    Methods in constructor
+        we can add to this not only properties, but methods as well.
+        e.g.
+*/
+    function Cardetails(model) {
+        this.model = model;
+        this.distance = 240;
+        this.time = 3;
+        this.maxSpeed = function() {
+            return this.distance / this.time
+            //this.speed = this.distance / this.time(This does not work; Why?)
+        };
+    }
+    let car = new Cardetails('Tesla')
+    console.log("Model: "+car.model)
+    console.log("Speed: "+car.maxSpeed()+ " km/hr")
