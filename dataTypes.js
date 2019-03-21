@@ -227,3 +227,51 @@ DATATYPES
             The length of such symbols is 2:
 */
         console.log( '❤️'.length ); // 2, Heart
+/*
+        Arrays
+            Stores ordered collections.
+            There are two syntaxes for creating an empty array:   
+            - let arr = new Array();
+            - let arr = [];
+
+            Methods pop/push, shift/unshift
+                A queue is one of most common uses of an array. Implements FIFO.
+                    it supports two operations:
+                        - push -> appends an element to the end.
+                        - shift ->  get an element from the beginning, advancing the queue, so that the 2nd element becomes the 1st.
+                A stack is another data structure that makes use of an array. Implements LIFO
+                    it supports two operations:
+                        - push adds an element to the end.
+                        - pop takes an element from the end.
+
+                Arrays in JavaScript can work both as a queue and as a stack. They allow you to add/remove elements 
+                    both to/from the beginning or the end i.e. dequeue.
+            
+            Methods that work with the end of the array:
+                Pop - Extracts the last element of the array and returns it
+*/
+let familyMembers = ["James", "Kaguna", "Kariuki", "Njoki"];
+
+console.log( familyMembers.pop() ); // remove "Njoki" and log it
+console.log( familyMembers ); // ["James", "Kaguna", "Kariuki"]
+
+/*
+Push - Append the element to the end of the array
+*/              familyMembers.push("Muthii")
+console.log( familyMembers ); // ["James", "Kaguna", "Kariuki", "Njoki", "Muthii"]
+/*
+Methods that work with the beginning of the array:
+shift - Extracts the first element of the array and returns it:
+*/              console.log( familyMembers.shift() ); // "James"
+console.log( familyMembers ); // ["Kaguna", "Kariuki", "Njoki"]
+/*
+unshift - Add the element to the beginning of the array:
+*/              familyMembers.unshift("Tabitha");
+console.log( familyMembers ); // ["Tabitha", "James", "Kaguna", "Kariuki", "Njoki"]
+/*             NB: Methods push and unshift can add multiple elements at once.
+
+To loop over the elements of the array:
+- for (let i=0; i<arr.length; i++) – works fastest, old-browser-compatible.
+- for (let item of arr) – the modern syntax for items only,
+- for (let i in arr) – never use.
+*/
