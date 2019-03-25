@@ -275,3 +275,68 @@ To loop over the elements of the array:
 - for (let item of arr) – the modern syntax for items only,
 - for (let i in arr) – never use.
 */
+
+/*
+        Array methods
+            - arr.push(...items) – adds items to the end,
+            - arr.pop() – extracts an item from the end,
+            - arr.shift() – extracts an item from the beginning,
+            - arr.unshift(...items) – adds items to the beginning.
+            - arr.splice(index, itemsCount) - removes number of itemsCount from the index given.
+            - arr.splice(index, itemsCount, items) 
+                if itemsCount == 0 it adds items from the specified index.
+                else it removes the number of items in the itemCount and replaces with items.
+            - arr.slice(start, end) - creates a new array, copies elements from position start till end (not inclusive) into it.
+            - concat(...items) – returns a new array: copies all members of the current one and adds items to it. 
+                If any of items is an array, then its elements are taken.
+            -  Iterate: arr.forEach - method allows to run a function for every element of the array.
+                arr.forEach(function(item, index, array) {
+                    // ... do something with item
+                });
+
+        Searching in array
+            - arr.indexOf(item, from) - looks for item starting from index from, and returns the index where it was found, otherwise -1.
+            - arr.lastIndexOf(item, from) – same, but looks from right to left.
+            - arr.includes(item, from) – looks for item starting from index from, returns true if found. 
+            - find and findIndex
+                let result = arr.find(function(item, index, array) {
+                    // if true is returned, item is returned and iteration is stopped
+                    // for falsy scenario returns undefined
+                });
+                 arr.findIndex method is essentially the same, but it returns the index where the element was found instead 
+                    of the element itself and -1 is returned when nothing is found
+            - filter(func) – filter elements through the function, return first/all values that make it return true.
+
+        Transform an array
+            - map(arr.map) - creates a new array from results of calling func for every element.
+                let result = arr.map(function(item, index, array) {
+                    // returns the new value instead of item
+                })
+            - sort(func) – sorts the array in-place, then returns it.
+                arr.sort( (a, b) => a - b );
+
+*/
+            let arr = [ 1, 2, 15, 3, 7 ];
+            arr.sort(function(a, b) { return a - b; });
+            console.log(arr);  // 1, 2, 3, 7, 15
+
+            // Using arrow of functions. It is neater.
+            let arr = [ 1, 2, 15, 3, 7 ];
+            arr.sort((a, b) => a - b );
+            console.log(arr);  // 1, 2, 3, 7, 15
+/*
+            reverse() – reverses the array in-place, then returns it.
+            split/join – convert a string to array and back.
+            reduce(func, initial) – calculate a single value over the array by calling func for each 
+                element and passing an intermediate result between the calls.
+                    let value = arr.reduce(function(previousValue, item, index, array) {
+                        // ...
+                    }, initial);
+
+                    let arr = [1, 2, 3, 4, 5];
+                    let result = arr.reduce((sum, current) => sum + current, 0);
+                    console.log(result); // 15
+
+            Array.isArray(arr) checks arr for being an array.
+            NB: Please note that methods sort, reverse and splice modify the array itself.
+*/
