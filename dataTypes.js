@@ -340,3 +340,95 @@ To loop over the elements of the array:
             Array.isArray(arr) checks arr for being an array.
             NB: Please note that methods sort, reverse and splice modify the array itself.
 */
+/*
+    Iterables
+        Iterable objects is a generalization of arrays. That’s a concept that allows to make any object useable in a for..of loop.
+        Strings are also iterables.
+*/
+/*
+      Map, Set, WeakMap and WeakSet
+        Recap:
+            - Objects for storing keyed collections.
+            - Arrays for storing ordered collections.
+            
+        Map: it is a collection of keyed data items, just like an Object. But the main difference is that Map allows keys of any type. 
+            The main methods are:
+                - new Map() – creates the map.
+                - map.set(key, value) – stores the value by the key.
+                - map.get(key) – returns the value by the key, undefined if key doesn’t exist in map.
+                - map.has(key) – returns true if the key exists, false otherwise.
+                - map.delete(key) – removes the value by the key.
+                - map.clear() – clears the map
+                - map.size – returns the current element count.
+
+            Iteration over Map:
+                There are 3 methods:
+                    - map.keys() – returns an iterable for keys,
+                    - map.values() – returns an iterable for values,
+                    - map.entries() – returns an iterable for entries [key, value], it’s used by default in for..of.
+*/              let facultyStudentMap = new Map([
+                    ['CIT', 350],
+                    ['Finance', 500],
+                    ['Economics',    720]
+                ]);
+                // iterate over keys (faculties)
+                for (let faculties of facultyStudentMap.keys()) {
+                    console.log(faculties); // CIT, Finance, Economics
+                }
+                // iterate over values (students)
+                for (let students of facultyStudentMap.values()) {
+                    console.log(students); // 350, 500, 720
+                }
+                // iterate over [key, value] entries
+                for (let entries of facultyStudentMap) { // the same as of facultyStudentMap.entries()
+                    console.log(entries); // ["CIT", 350]; ["Finance", 500]; ["Economics", 720]
+                }
+/*
+            Besides that, Map has a built-in forEach method, similar to Array:
+                // runs the function for each (key, value) pair
+                recipeMap.forEach( (value, key, map) => {
+                    alert(`${key}: ${value}`); // cucumber: 500 etc
+                });
+
+        Set: it is a collection of values, where each value may occur only once.
+            Its main methods are:
+                - new Set(iterable) – creates the set, optionally from an array of values (any iterable will do).
+                - set.add(value) – adds a value, returns the set itself.
+                - set.delete(value) – removes the value, returns true if value existed at the moment of the call, otherwise false.
+                - set.has(value) – returns true if the value exists in the set, otherwise false.
+                - set.clear() – removes everything from the set.
+                - set.size – is the elements count.
+
+            Set keeps only unique values.
+
+            NB:The alternative to Set could be an array of users, and the code to check for duplicates on every insertion using arr.find.
+                 But the performance would be much worse, because this method walks through the whole array checking every element. 
+                    Set is much better optimized internally for uniqueness checks.
+            
+            Iteration over Set:
+               The same methods Map has for iterators are also supported.
+               NB:  The forEach function in the Set has 3 arguments: a value, then again a value, and then the target object. 
+                    Indeed, the same value appears in the arguments twice
+                    That’s for compatibility with Map where forEach has three arguments hence may help to replace Map with Set 
+                        in certain cases with ease, and vice versa.
+        
+        WeakMap: is the same thing for Map
+            - WeakMap keys must be objects, not primitive values. 
+            - weakMap.set(obj, key); // works fine (object key)
+            - WeakMap does not support iteration and methods keys(), values(), entries(), so there’s no way to get all keys or values from it.
+            - It has only the following methods:
+                weakMap.get(key)
+                weakMap.set(key, value)
+                weakMap.delete(key)
+                weakMap.has(key)
+            - WeakMap can make things simpler, because it is cleaned up automatically. 
+                The information in it like visits count, lives only while the key object exists.
+
+        WeakSet: is a special kind of Set that does not prevent JavaScript from removing its items from memory. 
+            - It is similar to Set, but we may only add objects to WeakSet (not primitives).
+            - An object exists in the set while it is reachable from somewhere else.
+            - Like Set, it supports add, has and delete, but not size, keys() and no iterations.
+
+        NB: The most notable limitation of WeakMap and WeakSet is the absence of iterations, and inability to get all current content.
+            They provide an “additional” storage of data for objects which are stored/managed at another place.   
+*/
