@@ -432,3 +432,68 @@ To loop over the elements of the array:
         NB: The most notable limitation of WeakMap and WeakSet is the absence of iterations, and inability to get all current content.
             They provide an “additional” storage of data for objects which are stored/managed at another place.   
 */
+/*
+    Destructuring assignment
+         is a special syntax that allows us to “unpack” arrays or objects into a bunch of variables, as sometimes they are more convenient.
+
+        Array destructuring:
+            we have an array with the fname, lname and surname
+*/          let myNames = ["James", "Kariuki", "Kaguna"]
+            // destructuring assignment
+            let [firstName, lastName, surname] = myNames;
+            // this is a shorter way to write the above.
+            let firstName = arr[0];
+            let lastName = arr[1];
+            let surname = arr[2];
+
+            console.log(firstName); // "James"
+            console.log(lastName);  // "Kariuki"
+            console.log(surname);  // "Kaguna"
+/*
+        Object destructuring:
+*/          let dimensions = {
+                name: "Cuboid",
+                length: 300,
+                width: 100,
+                height: 200
+            };
+
+            // { sourceProperty: targetVariable }
+            let {length: l, width: w, height: h, name} = dimensions;
+            // The colon shows “what : goes where”
+            // length -> l
+            // width -> w
+            // height -> h
+            // name -> name
+
+            console.log(name);  // Cuboid
+            console.log(l);      // 300
+            console.log(w);      // 100
+            console.log(h);      // 200
+/*
+        The rest operator:
+            This happens when the properties are more than the variables.
+            The specification for using the rest operator (three dots) here is almost in the standard,
+                 but most browsers do not support it yet.
+            e.g. let { name, ...rest } = dimensions;
+            // now name="Cuboid", rest={ l: 300, h: 200, w: 100 }
+
+        Smart function parameters:
+          There are times when a function may have many parameters, most of which are optional. That’s especially true for user interfaces.  
+*/          let dimensions = {
+                name: "Cuboid",
+                attributes: ["volume", "surfaceArea"]
+            };
+
+            function calculations({
+                name = "Cuboid",
+                length: l = 300, // length goes to l
+                width: w = 100,  // width goes to w
+                height: h = 200, // height goes to h
+                attributes: [ volume, surfaceArea] // items first element goes to volume, second to surfaceArea
+            }) {
+                console.log(`${name} ${l} ${w} ${h}`); // Cuboid 300 100 200"
+                console.log(`${volume}: ${l*w*h}`); // "volume: 6000000"
+                console.log(`${surfaceArea}: ${l*w}`); // "surfaceArea: 30000"
+            }
+            calculations(dimensions)
