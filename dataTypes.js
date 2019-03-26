@@ -497,3 +497,37 @@ To loop over the elements of the array:
                 console.log(`${surfaceArea}: ${l*w}`); // "surfaceArea: 30000"
             }
             calculations(dimensions)
+/*
+    JSON methods, toJSON
+        JavaScript provides methods:
+            - JSON.stringify to convert objects into JSON.
+            - JSON.parse to convert JSON back into an object.
+        
+        Excluding and transforming: replacer
+            The full syntax of JSON.stringify is:
+                let json = JSON.stringify(value[, replacer, space])
+
+                value
+                    - A value to encode.
+                replacer
+                    - Array of properties to encode or a mapping function function(key, value).
+                space
+                 - Amount of space to use for formatting
+        NB: Most of the time, JSON.stringify is used with the first argument only. But if we need to fine-tune the replacement process, 
+            like to filter out circular references, we can use the second argument of JSON.stringify
+
+        Custom “toJSON”:
+            Dates have an inbuilt toJSON method which converts to string automatically when JSON.stringify(date)
+            is used. e.g.
+*/
+                stringDate = JSON.stringify(new Date(Date.UTC(2017, 0, 1)));
+                console.log(stringDate); // 2017-01-01T00:00:00.000Z
+/*
+        JSON.parse
+            To decode a JSON-string, we need another method named JSON.parse.
+             i.e. let value = JSON.parse(str[, reviver]);
+                - str
+                    JSON-string to parse.
+                - reviver
+                - optional function(key,value) that will be called for each (key, value) pair and can transform the value.
+*/
