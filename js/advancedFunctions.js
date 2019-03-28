@@ -88,3 +88,57 @@
             Rest parameters are used to create functions that accept any number of arguments.
             The spread operator is used to pass an array to functions that normally require a list of many arguments.
 */
+
+/*
+        Closure
+            A closure is a function that remembers its outer variables and can access them.
+            In JavaScript, all functions are naturally closures i.e. they automatically remember where they were created using a 
+                hidden [[Environment]] property, and all of them can access outer variables.
+
+            Lexical Environment
+                In JavaScript, every running function, code block, and the script as a whole have 
+                    an associated object known as the Lexical Environment.
+                The Lexical Environment object consists of two parts:
+                    - Environment Record – an object that has all local variables as its properties 
+                        (and some other information like the value of this).
+                    - A reference to the outer lexical environment, usually the one associated with the code 
+                        lexically right outside of it (outside of the current curly brackets).
+                Global Lexical Environment is associated with the whole script.
+
+                A variable is a property of a special internal object, associated with the currently executing block/function/script.
+                Working with variables is actually working with the properties of that object.
+*/              let car = "Probox";
+                function drive() {
+                    console.log("I drive a" + car);
+                }
+                car = "Range Rover"; // (*)
+                drive(); // I drive a Range Rover
+/*
+                The execution flow of the code above:
+                    - The global Lexical Environment has name: "Probox".
+                    - At the line (*) the global variable is changed, now it has name: "Range Rover".
+                    - When the function drive(), is executed and takes name from outside. 
+                        Here that’s from the global Lexical Environment where it’s already "Probox".
+
+            Nested functions
+                A function is called “nested” when it is created inside another function.
+                a nested function can be returned: either as a property of a new object 
+                    (if the outer function creates an object with methods) or as a result by itself.
+
+            Environments in detail
+                All functions “on birth” receive a hidden property [[Environment]] with a reference 
+                    to the Lexical Environment of their creation.
+            
+            IIFE(immediately-invoked function expressions)
+                Function Expression is created and immediately called. So the code executes right away and has 
+                    its own private variables.
+*/              (function() {
+                    let message = "Say no to corruption!";
+                    console.log(message); // Say no to corruption!
+                })();
+/*
+            Garbage collection
+                Usually, a Lexical Environment is cleaned up and deleted after the function run.
+                But if there’s a nested function that is still reachable after the end of outer fxn, then 
+                    its [[Environment]] reference keeps the outer lexical environment alive as well.
+*/
