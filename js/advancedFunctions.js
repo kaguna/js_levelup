@@ -142,3 +142,49 @@
                 But if there’s a nested function that is still reachable after the end of outer fxn, then 
                     its [[Environment]] reference keeps the outer lexical environment alive as well.
 */
+
+/*
+        The old "var"
+                There are two main differences of var:
+                    - Variables have no block scope, they are visible minimum at the function level.
+                    - Variable declarations are processed at function start.
+                
+*/
+/*
+        Global object
+            The global object provides variables and functions that are available anywhere. Mostly, the ones 
+                that are built into the language or the host environment.
+
+            Browser: the “window” object:
+                1. We can use window to access properties and methods, specific to the browser window. i.e.
+                    - window.innerHeight - shows the browser window height
+                    - window.open(url); -  opens a new browser window
+
+                2. Top-level var variables and function declarations automatically become properties of window.
+*/
+                    var name = 'james';
+
+                    console.log(window.name); // James (var name becomes a property of window)
+
+                    window.name = 'Kaguna';
+
+                    console.log(name); // kaguna, variable modified 
+/*
+                3. Also, all scripts share the same global scope, so variables declared in one <script> become visible in another ones.
+                4. The value of this in the global scope is window.
+
+            If we set type="module" attribute on a <script> tag, then such script is considered a separate “module” with its 
+                own top-level scope (lexical environment), not interfering with window
+
+            Valid uses of the global object:
+                1. to enhance accessibility from all other scripts.
+                2. We can test the global object for support of modern language features. e.g. test if a build-in Promise object 
+                    exists (it doesn’t in really old browsers)
+*/    
+                    if (!window.Promise) {
+                        console.log("Your browser is really old!");
+                    }
+/*
+                3. We can create “polyfills” i.e. add functions that are not supported by the environment 
+                    (say, an old browser), but exist in the modern standard. e.g. window.Promise.
+*/
