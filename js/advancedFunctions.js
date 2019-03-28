@@ -188,3 +188,51 @@
                 3. We can create “polyfills” i.e. add functions that are not supported by the environment 
                     (say, an old browser), but exist in the modern standard. e.g. window.Promise.
 */
+
+/*
+        Function object, NFE
+            Functions are objects.
+            Function Properties:
+                    - name – the function name. Exists not only when given in the function definition, but 
+                                also for assignments and object properties.
+                    - length – the number of arguments in the function definition. Rest parameters are not counted.
+*/
+                        let sayMyName = function() {
+                            console.log("Butita");
+                        }
+                        console.log(sayMyName.name); // sayMyName
+                        
+                        function sayYourNames(fname, sname, surname) {
+                            console.log("Kaguna");
+                        }
+                        console.log(sayYourNames.name); // sayYourNames
+                        console.log(sayYourNames.length); // 3
+/*
+            Custom properties:
+*/              var doSomething = function() {
+                    doSomething.name = 'Tom';
+                    doSomething.name2 = 'John';
+                    return 'Beep';
+                };
+                console.log(doSomething.name); //"doSomething"
+                console.log(doSomething.name2); //undefined
+                console.log(doSomething());//"Beep"
+                console.log(doSomething.name); //"doSomething"
+                console.log(doSomething.name2);//"John"
+/*
+            Named Function Expression(NFE)
+                If the function is declared as a Function Expression (not in the main code flow), and it carries the name, 
+                    then it is called a Named Function Expression.
+*/
+                let sayMyName = function(name) {
+                    console.log(`${name}`);
+                }
+                console.log('Butita'); // Butita
+/*
+                Also, functions may carry additional properties. Many well-known JavaScript libraries make great use of this feature.
+                They create a “main” function and attach many other “helper” functions to it. For instance, the jquery 
+                    library creates a function named $. The lodash library creates a function _. And then adds _.clone,
+                     _.keyBy and other properties too.
+                They do it to lessen their pollution of the global space, so that a single library gives only one global variable. 
+                    That reduces the possibility of naming conflicts.
+*/
