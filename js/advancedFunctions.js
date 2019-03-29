@@ -236,3 +236,26 @@
                 They do it to lessen their pollution of the global space, so that a single library gives only one global variable. 
                     That reduces the possibility of naming conflicts.
 */
+/*
+        The "new Function" syntax
+                The major difference from other ways we’ve seen is that the function is created literally from a string, 
+                    that is passed at run time.
+
+                All previous declarations required us, programmers, to write the function code in the script.
+
+                But new Function allows to turn any string into a function. For example, we can receive a new function from a
+                 server and then execute it.
+                It is used in very specific cases, like when we receive code from a server, or to dynamically compile 
+                    a function from a template.
+
+            Syntax:    
+            let func = new Function(arg1, arg2, ..., body);
+*/
+            let age = new Function('currentYear', 'dob', 'return currentYear - dob');
+            console.log( age(2019, 1978) ); // 41
+/*
+            Closure
+                Functions created with new Function, have [[Environment]] referencing the global Lexical Environment, 
+                    not the outer one. Hence, they cannot use outer variables. But that’s actually good, because it saves us from errors.
+                     Passing parameters explicitly is a much better method architecturally and causes no problems with minifiers.
+*/
