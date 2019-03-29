@@ -259,3 +259,67 @@
                     not the outer one. Hence, they cannot use outer variables. But that’s actually good, because it saves us from errors.
                      Passing parameters explicitly is a much better method architecturally and causes no problems with minifiers.
 */
+/*
+        Scheduling: setTimeout and setInterval
+            setTimeout allows to run a function once after the interval of time.
+                Syntax:
+                    let timerId = setTimeout(func|code, delay[, arg1, arg2...])
+                    Parameters:
+                        - func|code
+                            Function or a string of code to execute. Usually, that’s a function. For historical reasons, 
+                                a string of code can be passed, but that’s not recommended.
+                        - delay
+                            The delay before run, in milliseconds (1000 ms = 1 second).
+                        - arg1, arg2…
+                            Arguments for the function
+*/
+                    function sayMyNames(fname, sname) {
+                        console.log( fname + ' ' + sname );
+                    }
+                    setTimeout(sayMyNames, 1000, "James", "Kaguna"); // James Kaguna
+/*  
+                Canceling with clearTimeout
+*/
+                    let timerId = setTimeout(() => alert("never happens"), 1000);
+                    console.log(timerId); // timer identifier
+                    clearTimeout(timerId);
+                    console.log(timerId); // same identifier (doesn't become null after canceling)
+/*
+            setInterval allows to run a function regularly with the interval between the runs.
+                    Symtax:
+                        let timerId = setInterval(func|code, delay[, arg1, arg2...])
+                    
+                    All arguments have the same meaning. But unlike setTimeout it runs the function not only once, but 
+                        regularly after the given interval of time.
+                    To stop further calls, we should call clearInterval(timerId)
+
+                    For setInterval the function stays in memory until clearInterval is called.
+                    There’s a side-effect. A function references the outer lexical environment, so, while it lives, 
+                        outer variables live too. They may take much more memory than the function itself. So when we 
+                            don’t need the scheduled function anymore, it’s better to cancel it, even if it’s very small.
+*/
+                    // repeat with the interval of 2 seconds
+                    let timerId = setInterval(() => console.log('tick'), 2000);
+                    // after 5 seconds stop
+                    setTimeout(() => { clearInterval(timerId); console.log('stop'); }, 5000);
+/*
+                    Recursive setTimeout guarantees a delay between the executions, setInterval – does not.
+
+                    Nested setTimeout calls is a more flexible alternative to setInterval. Also they can guarantee 
+                        the minimal time between the executions.
+
+                    Zero-timeout scheduling setTimeout(...,0) is used to schedule the call “as soon as possible, 
+                        but after the current code is complete”.
+                    
+                    Some use cases of setTimeout(...,0):
+                        - To split CPU-hungry tasks into pieces, so that the script doesn’t “hang”
+                        - To let the browser do something else while the process is going on (paint the progress bar).
+                    
+                    Please note that all scheduling methods do not guarantee the exact delay. We should not rely on 
+                        that in the scheduled code.
+
+                    For example, the in-browser timer may slow down for a lot of reasons:
+                        - The CPU is overloaded.
+                        - The browser tab is in the background mode.
+                        - The laptop is on battery.
+*/
