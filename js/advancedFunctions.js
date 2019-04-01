@@ -457,3 +457,71 @@
                         }
                     NB: JavaScript libraries also provide functions for convenient mass binding , e.g. _.bindAll(obj) in lodash.
 */
+
+/*
+            Currying and partials
+                We can bind not only this, but also arguments.
+
+                Syntax:
+                    let bound = func.bind(context, arg1, arg2, ...);
+                
+                Partials:
+                    partial function application -> we create a new function by fixing some parameters of the existing one
+                    They are convenient when we don’t want to repeat the same argument over and over again. Like if we have a 
+                        send(from, to) function, and from should always be the same for our task, we can get a partial and go on with it.
+                    
+                    Why do we usually make a partial function?
+                        Creation of independent function with a readable name.
+                        We can use it and don’t write the first argument of every time, cause it’s fixed with bind.
+                        In other cases, partial application is useful when we have a very generic function, and want 
+                            a less universal variant of it for convenience.
+                        For instance, we have a function send(from, to, text). Then, inside a user object we may want to   
+                            use a partial variant of it: sendTo(to, text) that sends from the current user.
+*/
+                        function add(num1, num2) {
+                            return num1 + num2;
+                        }
+                        
+                        let addition = add.bind(null, 2);
+                        
+                        console.log( addition(3) ); // = add(2, 3) = 5
+                        console.log( addition(8) ); // = add(2, 8) = 10
+                        console.log( addition(5) ); // = add(2, 5) = 7
+/*
+                Currying:
+                    It is translating a function from callable as f(a, b, c) into callable as f(a)(b)(c).
+                    Advanced currying allows the function to be both callable normally and get partials.
+                    It is great when we want easy partials.
+                    the universal function log(date, importance, message) after currying gives us partials when called 
+                        with one argument like log(date) or two arguments log(date, importance).
+*/
+                    function curry(func) {
+
+                        return function curried(...args) {
+                        if (args.length >= func.length) {
+                            return func.apply(this, args);
+                        } else {
+                            return function(...args2) {
+                            return curried.apply(this, args.concat(args2));
+                            }
+                        }
+                        };
+                    
+                    }
+                    
+                    function sum(a, b, c) {
+                        return a + b + c;
+                    }
+                    
+                    let curriedSum = curry(sum);
+                    
+                    // still callable normally
+                    console.log( curriedSum(1, 2, 3) ); // 6
+                    
+                    // get the partial with curried(1) and call it with 2 other arguments
+                    console.log( curriedSum(1)(2,3) ); // 6
+                    
+                    // full curried form
+                    console.log( curriedSum(1)(2)(3) ); // 6
+
+                // NB: The currying requires the function to have a known fixed number of arguments.
