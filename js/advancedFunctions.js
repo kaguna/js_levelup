@@ -323,3 +323,83 @@
                         - The browser tab is in the background mode.
                         - The laptop is on battery.
 */
+/*
+            Decorators and forwarding, call/apply
+                Decorator is a wrapper around a function that alters its behavior. The main job is still carried out by the function.
+            
+                Transparent caching:
+*/
+                    function slow(x) {
+                        // there can be a heavy CPU-intensive job here
+                        console.log(`Called with ${x}`);
+                        return x;
+                    }
+                    
+                    function cachingDecorator(func) {
+                        let cache = new Map();
+                    
+                        return function(x) {
+                        if (cache.has(x)) { // if the result is in the map
+                            return cache.get(x); // return it
+                        }
+                    
+                        let result = func(x); // otherwise call func
+                    
+                        cache.set(x, result); // and cache (remember) the result
+                        return result;
+                        };
+                    }
+                    
+                    slow = cachingDecorator(slow);
+                    
+                    console.log( slow(1) ); // slow(1) is cached
+                    console.log( "Again: " + slow(1) ); // the same
+                    
+                    console.log( slow(2) ); // slow(2) is cached
+                    console.log( "Again: " + slow(2) ); // the same as the previous line
+/*
+                    In the code above cachingDecorator is a decorator: a special function that takes another function 
+                        and alters its behavior.
+
+                    The idea is that we can call cachingDecorator for any function, and it will return the caching wrapper. 
+                        That’s great, because we can have many functions that could use such a feature, and all we need to 
+                            do is to apply cachingDecorator to them.
+                    
+                    There are several benefits of using a separate cachingDecorator instead of 
+                    altering the code of slow itself:
+                        - The cachingDecorator is reusable. We can apply it to another function.
+                        - The caching logic is separate, it did not increase the complexity of slow itself (if there were any).
+                        - We can combine multiple decorators if needed (other decorators will follow).
+
+                Using “func.call” for the context
+                    Allows to call a function explicitly setting this.
+
+                    Syntax:
+                        func.call(context, arg1, arg2, ...)
+                        It runs func providing the first argument as this, and the next as the arguments.
+
+                    func(1, 2, 3);
+                    func.call(obj, 1, 2, 3)
+                        They both call func with arguments 1, 2 and 3. The only difference is that func.call also sets this to obj.
+
+                Going multi-argument with “func.apply”
+                    Calls func passing context as this and array-like args into a list of arguments.
+
+                    Syntax:
+                        func.apply(context, args)
+                        It runs the func setting this=context and using an array-like object args as the list of arguments.
+
+                    func(1, 2, 3);
+                    func.apply(context, [1, 2, 3])
+                        Both run func giving it arguments 1,2,3. But apply also sets this=context
+                
+                    NB: The only syntax difference between call and apply is that call expects a list of arguments, 
+                        while apply takes an array-like object with them.
+                
+                Borrowing a method
+                    We take (borrow) a join method from a regular array [].join. And use [].join.call to run it in 
+                        the context of arguments.
+                    So, technically it takes this and joins this[0], this[1] …etc together. It’s intentionally written in a way 
+                        that allows any array-like this (not a coincidence, many methods follow this practice). 
+                            That’s why it also works with this=arguments
+*/
