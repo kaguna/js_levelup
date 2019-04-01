@@ -403,3 +403,57 @@
                         that allows any array-like this (not a coincidence, many methods follow this practice). 
                             That’s why it also works with this=arguments
 */
+
+/*
+            Function binding
+                When using setTimeout with object methods or passing object methods along, there’s a known problem: "losing this".
+                
+                Losing “this”
+                    This happens once a method is passed somewhere separately from the object.
+                    The method setTimeout in-browser is a little special: it sets this=window for the function call 
+                    i.e.
+*/                  let member = {
+                        names: "James Kariuki",
+                        sayMyNames() {
+                        console.log(`${this.names}`);
+                        }
+                    };
+                    setTimeout(member.sayMyNames, 1000); // undefined
+/*
+                    So for this.names it tries to get window.names, which does not exist.
+                
+                SOLUTIONS:
+                    1. A wrapper
+*/                      setTimeout(function() {
+                            member.sayMyNames(); // James Kariuki
+                        }, 1000);
+
+                        // OR
+                        setTimeout(() => member.sayMyNames(), 1000); // James Kariuki
+/*
+                        It works, because it receives user from the outer lexical environment, and then calls the method normally.
+
+                    2. bind
+                        Functions provide a built-in method bind that allows to fix this.
+                        Method func.bind(context, ...args) returns a “bound variant” of function func that fixes the context 
+                            this and first arguments if given.
+
+                        Syntax:
+                            let boundFunc = func.bind(context);
+                        The result of func.bind(context) is a special function-like “exotic object”, that is callable as function 
+                            and transparently passes the call to func setting this=context.                    
+*/
+                        let sayMyNames = member.sayMyNames.bind(member);
+
+                        sayMyNames(); // James Kariuki
+
+                        setTimeout(sayMyNames, 1000); // James Kariuki
+/*
+                    If an object has many methods and we plan to actively pass it around, then we could bind them all in a loop:
+                        for (let key in user) {
+                            if (typeof user[key] == 'function') {
+                                user[key] = user[key].bind(user);
+                            }
+                        }
+                    NB: JavaScript libraries also provide functions for convenient mass binding , e.g. _.bindAll(obj) in lodash.
+*/
