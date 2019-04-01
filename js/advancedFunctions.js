@@ -525,3 +525,30 @@
                     console.log( curriedSum(1)(2)(3) ); // 6
 
                 // NB: The currying requires the function to have a known fixed number of arguments.
+
+/*
+            Arrow functions revisited:
+                Arrow functions have no “this” hence can’t be used as constructors. 
+                Do not have arguments.
+                Can’t be called with new.
+                They also don’t have super
+
+                That’s because they are meant for short pieces of code that do not have their own “context”, 
+                    but rather works in the current one. And they really shine in that use case.
+*/
+                let media = {
+                    title: "Social Media",
+                    apps: ["whatsApp", "Facebook", "Instagram"],
+                
+                    showList() {
+                    this.apps.forEach(
+                        app => console.log(this.title + ': ' + app)
+                    );
+                    }
+                };
+                
+                media.showList();
+/*
+                If we used a “regular” function, there would be an error. It occurs because forEach runs 
+                functions with this=undefined by default, so the attempt to access undefined.title is made.
+*/
