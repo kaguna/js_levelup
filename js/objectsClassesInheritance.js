@@ -263,3 +263,45 @@
             
             alert( member.birthday ); // Sat Jul 01 1989 00:00:00 GMT+0300 (East Africa Time)
             console.log( member.age );      // 30
+
+/*
+    Prototypal inheritance
+        Prototype - hidden property that’s either another object or null.
+
+        When we want to read a property from object, and it’s missing, JavaScript 
+            automatically takes it from the prototype. This is called prototypal inheritance
+
+        __proto__ is one of the ways to set a [[Prototype].
+        it is a historical getter/setter for [[Prototype]]
+
+        In modern language it is replaced with functions Object.getPrototypeOf/Object.setPrototypeOf 
+            that also get/set the prototype.
+        e.g.
+*/
+        let animal = {
+            characteristic: "Living thing",
+            eats: true,
+            moves() {
+            console.log("Animal moves");
+            }
+        };
+        
+        let cow = {
+            chewCud: true,
+            __proto__: animal
+        };
+        
+        // walk is taken from the prototype
+        cow.moves(); // Animal moves
+/*
+        Writing doesn’t use prototype
+            The prototype is only used for reading properties.
+            Write/delete operations work directly with the object.
+        
+        The value of “this”
+            No matter where the method is found: in an object or its prototype. In a method call,
+                 this is always the object before the dot.
+            If we call obj.method(), and the method is taken from the prototype, 'this' still 
+            references obj. So methods always work with the current object even if they are 
+             inherited.
+*/
