@@ -305,3 +305,39 @@
             references obj. So methods always work with the current object even if they are 
              inherited.
 */
+
+/*
+    F.prototype
+        The F.prototype property is not the same as [[Prototype]]. The only thing F.prototype
+         does: it sets [[Prototype]] of new objects when new F() is called.
+*/
+        let animal = {
+            eats: true
+        };
+        
+        function Rabbit(name) {
+            this.name = name;
+        }
+        
+        Rabbit.prototype = animal;
+        
+        let rabbit = new Rabbit("White Rabbit"); //  rabbit.__proto__ == animal
+        
+        console.log( rabbit.eats ); // true
+/*
+        Default F.prototype, constructor property
+            The default "prototype" is an object with the only property constructor that 
+             points back to the function itself.
+             i.e.
+*/
+            function User() {}
+            // by default:
+            // User.prototype = { constructor: User }
+            console.log( User.prototype.constructor == User ); // true
+/*
+        The "prototype" property only has such a special effect when is set to a constructor
+         function, and invoked with new.
+
+        F.prototype is only used when new F is called, it assigns [[Prototype]] of the new object.
+         After that, there’s no connection between F.prototype and the new object.
+*/
