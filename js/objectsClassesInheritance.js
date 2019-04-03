@@ -142,3 +142,124 @@
 
                 NB: These methods are rarely used in practice.
 */
+
+/*
+    Property getters and setters
+        There are two kinds of properties:
+            1. data properties - these are properties we've been working with in the previous chapters.
+            2. accessor properties - essentially functions that work on getting and setting a value.
+                                   - They are represented by “getter” and “setter” methods.
+        Syntax:
+            let obj = {
+                get propName() {
+                    // getter, the code executed on getting obj.propName
+                },
+
+                set propName(value) {
+                    // setter, the code executed on setting obj.propName = value
+                }
+            };
+
+            Example:
+*/
+            let member = {
+                firstName: "James",
+                secondName: "Kariuki",
+                surname: "Kaguna",
+            
+                get fullName() {
+                return `${this.firstName} ${this.secondName} ${this.surname}`;
+                },
+                
+                set fullName(value) {
+                    [this.firstName, this.secondName, this.surname] = value.split(" ");
+                }
+            };
+            
+            member.fullName = "Brian Muthii Kaguna"
+            console.log(member.fullName); // James Kariuki Kaguna
+            console.log(member.firstName); // Brian
+            console.log(member.secondName); // Muthii
+            console.log(member.surname); // Kaguna
+/*
+            Once a property is defined with get prop() or set prop(), it’s an accessor property, 
+                not a data properety any more.
+                If there’s a getter – we can read object.prop, othrewise we can’t.
+                If there’s a setter – we can set object.prop=..., othrewise we can’t.
+            And in either case we can’t delete an accessor property.
+
+        Accessor descriptors
+            For accessor properties, there is no value and writable, but instead there are 
+                get and set functions.
+            So an accessor descriptor may have:
+                - get – a function without arguments, that works when a property is read,
+                - set – a function with one argument, that is called when the property is set,
+                - enumerable – same as for data properties,
+                - configurable – same as for data properties.
+
+            e.g. snippet
+*/
+            Object.defineProperty(member, 'fullName', {
+                get() {
+                    return `${this.firstName} ${this.secondName} ${this.surname}`;
+                },
+            
+                set(value) {
+                    [this.firstName, this.secondName, this.surname] = value.split(" ");
+                }
+            });
+
+            console.log(member.fullName); // James Kariuki Kaguna
+
+            for(let key in member) console.log(key); // firstName, secondName, surname
+/*
+        Smarter getters/setters
+            Getters/setters can be used as wrappers over “real” property values to gain 
+                more control over them.
+            e.g.
+*/
+            let member = {
+                get firstName() {
+                return this._firstName;
+                },
+            
+                set firstName(value) {
+                if (value.length < 4) {
+                    console.log("First name is too short, need at least 4 characters");
+                    return;
+                }
+                this._firstName = value;
+                }
+            };
+            
+            member.firstName = "james";
+            console.log(member.firstName); // Pete
+            member.firstName = ""; // Name is too short, need at least 4 characters
+/*
+            Technically, the external code may still access the name directly by using user._name. 
+                But there is a widely known agreement that properties starting with an 
+                underscore "_" are internal and should not be touched from outside the object.
+
+        Using for compatibility
+            One of the great ideas behind getters and setters – they allow to take 
+                control over a “normal” data property and tweak it at any moment.
+            For example in place where we were storing age, we decide to store birthday. 
+            To still retain age in our code, we may add a getter.
+*/
+            function Member(name, birthday) {
+                this.name = name;
+                this.birthday = birthday;
+            
+                // age is calculated from the current date and birthday
+                Object.defineProperty(this, "age", {
+                get() {
+                    let todayYear = new Date().getFullYear();
+                    return todayYear - this.birthday.getFullYear();
+                }
+                });
+            }
+            
+            let member = new Member("James", new Date(1989, 6, 1));
+            
+            alert( member.birthday ); // Sat Jul 01 1989 00:00:00 GMT+0300 (East Africa Time)
+            console.log( member.age );      // 30
