@@ -422,3 +422,36 @@
             Borrowing methods is flexible, it allows to mix functionality from different
              objects if needed.
 */
+
+/*
+    Methods for prototypes
+        Modern methods to setup and directly access the prototype are:
+            - Object.create(proto[, descriptors]) – creates an empty object with given proto
+                as [[Prototype]] (can be null) and optional property descriptors.
+            - Object.getPrototypeOf(obj) – returns the [[Prototype]] of obj
+                 (same as __proto__ getter).
+            - Object.setPrototypeOf(obj, proto) – sets the [[Prototype]] of obj to proto
+                (same as __proto__ setter).
+        
+        "very plain" objects
+            The built-in __proto__ getter/setter is unsafe if we’d want to put user-generated
+             keys in to an object. Just because a user may enter “proto” as the key, and there’ll
+              be an error with hopefully easy
+            So we can either use Object.create(null) to create a “very plain” object without
+             __proto__, or stick to Map objects for that.
+
+            - Object.keys(obj) / Object.values(obj) / Object.entries(obj) – returns an array of
+                enumerable own string property names/values/key-value pairs.
+            - Object.getOwnPropertySymbols(obj) – returns an array of all own symbolic property
+                names.
+            - Object.getOwnPropertyNames(obj) – returns an array of all own string property names.
+            - Reflect.ownKeys(obj) – returns an array of all own property names.
+            - obj.hasOwnProperty(key): it returns true if obj has its own (not inherited) property 
+                named key.
+            
+            So we can either use Object.create(null) to create a “very plain” object without
+             __proto__, or stick to Map objects for that.
+            
+            All methods that return object properties (like Object.keys and others) – return
+             “own” properties. If we want inherited ones, then we can use for..in.
+*/
