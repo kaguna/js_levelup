@@ -341,3 +341,84 @@
         F.prototype is only used when new F is called, it assigns [[Prototype]] of the new object.
          After that, there’s no connection between F.prototype and the new object.
 */
+
+/*
+    Native prototypes
+        Object.prototype
+*/
+            let obj = {};
+            console.log( obj ); // "[object Object]" ?
+/*
+            Short notation obj = {} is the same as obj = new Object(), where Object – is a built-in
+             object constructor function.
+            Object.prototype references a huge object with toString and other functions.
+            When new Object() is called (or a literal object {...} is created), the [[Prototype]] of
+             it is set to Object.prototype
+            Afterwards when obj.toString() is called – the method is taken from Object.prototype.
+        
+        Other built-in prototypes
+            All built-in objects follow the same pattern:
+                The methods are stored in the prototype (Array.prototype, Object.prototype, 
+                    Date.prototype etc).
+*/
+            let arr = [1, 2, 3];
+
+            // it inherits from Array.prototype?
+            console.log( arr.__proto__ === Array.prototype ); // true
+
+            // then from Object.prototype?
+            console.log( arr.__proto__.__proto__ === Object.prototype ); // true
+
+            // and null on the top.
+            console.log( arr.__proto__.__proto__.__proto__ ); // null
+/*
+            Other built-in objects also work the same way. Even functions. They are objects of a
+             built-in Function constructor, and their methods: call/apply and others are taken
+              from Function.prototype. 
+            Functions have their own toString too.
+
+        Primitives
+            They are not objects. But if we try to access their properties, then temporary wrapper
+             objects are created using built-in constructors String, Number, Boolean, they provide
+              the methods and disappear.
+            Methods of these objects also reside in prototypes, available as String.prototype,
+             Number.prototype and Boolean.prototype with an exception of null and undefined.
+        
+        Changing native prototypes
+            Native prototypes can be modified. For instance, if we add a method to String.prototype,
+             it becomes available to all strings:
+*/
+            String.prototype.show = function() {
+                console.log(this);
+            };
+            
+            "Tibiim!".show(); // Tibiim!
+/*
+            Prototypes are global, so it’s easy to get a conflict. If two libraries add a method
+             String.prototype.show, then one of them overwrites the other one.
+            So, generally modifying a native prototype is considered a bad idea.
+
+            In modern programming, there is only one case when modifying native prototypes is
+             approved. That’s polyfilling but not yet supported by current JavaScript engine.
+
+        Borrowing from prototypes
+            Possible when we take a method from one object and copy it into another.
+*/
+            let obj = {
+                0: "James",
+                1: "Kariuki",
+                2: "Kaguna",
+                length: 3,
+            };
+            obj.join = Array.prototype.join;
+            console.log( obj.join(',') ); // James,Kariuki,Kaguna
+/*
+            Another possibility is to inherit by setting obj.__proto__ to Array.prototype, then
+             all Array methods are automatically available in obj.
+
+            But that’s impossible if obj already inherits from another object. Remember, we
+             only can inherit from one object at a time.
+
+            Borrowing methods is flexible, it allows to mix functionality from different
+             objects if needed.
+*/
