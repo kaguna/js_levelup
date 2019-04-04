@@ -455,3 +455,91 @@
             All methods that return object properties (like Object.keys and others) – return
              “own” properties. If we want inherited ones, then we can use for..in.
 */
+
+/*
+    Class patterns
+        The term “class” comes from the object-oriented programming. In JavaScript it usually means
+         the functional class pattern or the prototypal pattern. The prototypal pattern is more
+          powerful and memory-efficient, so it’s recommended to stick to it.
+        
+        Functional class pattern
+             Constructor function below can be considered a “class”.
+*/
+            function Member(myName) {
+                this.sayMyName = function() {
+                console.log(myName);
+                };
+            }
+            let member = new Member("James Kariuki");
+            member.sayMyName(); // James Kariuki
+/*
+        Factory class pattern
+            We can create a class without using new at all.
+*/
+            function Member(myName) {
+                return {
+                    sayMyName(){
+                    console.log(myName);
+                    }
+                    };
+            } 
+            let member = Member("James Kariuki");
+            member.sayMyName(); // James Kariuki
+/*
+        Prototype-based classes
+            So, there is a widely known agreement that internal properties and methods are
+             prepended with an underscore "_".
+            In the prototypal pattern, all methods are in "Member.prototype" that is shared
+             between all user objects. An object itself only stores the data.
+
+            So the prototypal pattern is more memory-efficient.
+
+            The code structure:
+                - The constructor User only initializes the current object state.
+                - Methods are added to User.prototype.
+*/
+            function Member(myName) {
+                this._myName = myName;
+            }
+            Member.prototype.sayMyName = function() {
+                console.log(this._myName);
+            };
+
+            let member = new Member("James Kariuki");
+            member.sayMyName(); // James Kariuki
+/*
+        Prototype-based inheritance for classes
+            Let’s say we have two prototype-based classes.
+
+*/
+            function Animal(name) {
+                this.name = name;
+            }
+            
+            // All animals can eat, right?
+            Animal.prototype.eat = function() {
+                console.log(`${this.name} eats.`);
+            };
+            
+            
+            function Rabbit(name) {
+                this.name = name;
+            }
+            
+            Rabbit.prototype.jump = function() {
+                console.log(`${this.name} jumps!`);
+            };
+            
+            // setup the inheritance chain
+            Rabbit.prototype.__proto__ = Animal.prototype; // (*)
+            
+            let rabbit = new Rabbit("White Rabbit");
+            rabbit.eat(); // rabbits can eat too
+            rabbit.jump();
+/*
+            The line (*) sets up the prototype chain. So that rabbit first searches methods in
+             Rabbit.prototype, then Animal.prototype. And then, just for completeness, let’s
+              mention that if the method is not found in Animal.prototype, then the search
+               continues in Object.prototype, because Animal.prototype is a regular plain object,
+                so it inherits from it.
+*/
