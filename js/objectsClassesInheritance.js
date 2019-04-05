@@ -543,3 +543,41 @@
                continues in Object.prototype, because Animal.prototype is a regular plain object,
                 so it inherits from it.
 */
+
+/*
+    Classes
+        In Javascript, a class is a kind of function.
+        Class is a special syntax to define a constructor together with its prototype methods.
+        The definition class Class {...} creates a function under the same name and puts the
+         methods into Class.prototype.
+        
+        Class Expression
+            Just like functions, classes can be defined inside another expression, passed
+             around, returned
+            Here’s a class-returning function i.e. class factory.
+*/
+            function Member(myName) {
+                // declare a class and return it
+                return class {
+                sayMyName() {
+                    console.log(myName);
+                };
+                };
+            }
+            
+            let User = Member("James Kariuki");
+            
+            new User().sayMyName(); // James Kariuki
+/*
+        Differences between classes and functions
+            - Unlike a regular function, a class constructor can’t be called without new
+            - Class methods are non-enumerable.
+            - Classes have a default constructor() {}
+            - Classes always use strict.
+
+        Class properties
+            Class-level properties are a recent addition to the language.
+            The property is not placed into User.prototype. Instead, it is created by
+             new, separately for every object. So, the property will never be shared
+              between different objects of the same class.
+*/
