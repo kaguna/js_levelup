@@ -581,3 +581,78 @@
              new, separately for every object. So, the property will never be shared
               between different objects of the same class.
 */
+
+/*
+    Class inheritance
+        Classes can extend one another technically based on the prototypal inheritance.
+*/
+        class Person {
+
+            constructor(first, last, interests) {
+                this.name = {
+                    first,
+                    last
+                };
+                this.interests = interests;
+            }
+        
+            greeting() {
+                console.log(`Hi! I'm ${this.name.first}`);
+            };
+        
+            play() {
+                console.log(`${this.name.first} loves football.`);
+            };
+        
+        }
+        
+        // Inherit from Person
+        class Coach extends Person {
+            constructor(first, last, interests, team) {
+                super(first, last, interests);
+                // team is specific to coach
+                this.team = team;
+            }
+            
+            job() {
+                console.log(`${this.name.last} coaches ${this.team}!`);
+            }
+        }
+        
+        let coach = new Coach('James', 'Kariuki', 'Playing soccer', 'Chelsea F.C');
+        coach.greeting(); // Hi! I'm James.
+        coach.play(); // James loves football.
+        coach.job(); // Kariuki coaches Chelsea F.C!
+        coach.interests; // Expected an assignment or function call and instead saw an expression.?????????
+/*
+        The extends keyword actually adds a [[Prototype]] reference from Coach.prototype to Person.prototype
+
+        Overriding a method
+            we don’t want to totally replace a parent method, but rather to build on top of it, tweak
+             or extend its functionality. We do something in our method, but call the parent method
+              before/after it or in the process.
+            Classes provide "super" keyword for that:
+                - super.method(...) to call a parent method.
+                - super(...) to call a parent constructor (inside our constructor only).
+            NB: Arrow functions have no super
+
+        Overriding constructor
+            Till now, Coach did not have its own constructor.
+
+            According to the specification, if a class extends another class and has no
+             constructor, then the  it basically calls the parent constructor passing it
+              all the arguments. That happens if we don’t write a constructor of our own.
+
+            if we’re making a constructor of our own, then we must call super, because
+              otherwise the object with this reference to it won’t be created. And we’ll get an error.
+
+        Super: internals, [[HomeObject]]
+            When a function is specified as a class or object method, its [[HomeObject]]
+             property becomes that object.
+
+            This actually violates the idea of “unbound” functions, because methods remember their
+             objects. And [[HomeObject]] can’t be changed, so this bound is forever. So that’s a
+              very important change in the language.
+            But this change is safe. [[HomeObject]] is used only for calling parent methods in super,
+             to resolve the prototype. So it doesn’t break compatibility.
+*/
