@@ -656,3 +656,46 @@
             But this change is safe. [[HomeObject]] is used only for calling parent methods in super,
              to resolve the prototype. So it doesn’t break compatibility.
 */
+
+/*
+    Static properties and methods
+        Static methods - methods assigned to a call method rather than its prototype.
+            Usually, static methods are used to implement functions that belong to the class,
+            but not to any particular object of it.
+*/
+            class Member {
+                static staticMethod() {
+                console.log(this === Member);
+                }
+            }
+            Member.staticMethod(); // true
+/*
+            The value of this inside Member.staticMethod() is the class constructor Member itself
+
+        Static properties
+            Static properties are used when we’d like to store class-level data, also not bound
+             to an instance.
+*/
+            class Member {
+                static fullName = "James Kariuki Kaguna";
+            }
+            console.log( Member.fullName ); // James Kariuki Kaguna
+/*
+            That is the same as a direct assignment to Article:
+            Member.fullName = "James Kariuki Kaguna";
+        
+        Statics and inheritance
+            Technically, for class B extends A the prototype of the class B itself points
+             to A: B.[[Prototype]] = A. So if a field is not found in B, the search continues in A.
+*/
+            class Person {}
+            class Coach extends Person {}
+
+            // for static properties and methods
+            console.log(Coach.__proto__ === Person); // true
+
+            // and the next step is Function.prototype
+            console.log(Person.__proto__ === Function.prototype); // true
+
+            // that's in addition to the "normal" prototype chain for object methods
+            console.log(Coach.prototype.__proto__ === Person.prototype);
