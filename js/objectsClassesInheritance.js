@@ -723,3 +723,31 @@
             NB: Right now, private fields are not well-supported among browsers, but
                  can be polyfilled.
 */
+
+/*
+    Extending build-in classes
+        Built-in classes like Array, Map and others are extendable also.
+*/
+        // add one more method to it (can do more)
+        class CubeArray extends Array {
+            isEmpty() {
+            return this.length === 0;
+            }
+        }
+        
+        let cubeArray = new CubeArray(1, 3, 27, 64, 125);
+        console.log(cubeArray.isEmpty()); // false
+        let result = cubeArray.filter(item => item <= 100);
+        console.log(result); // [1, 3, 27, 64]
+/*
+        Built-in methods like filter, map and others – return new objects of exactly the
+         inherited type. They rely on the constructor property to do so.
+        i.e. cubeArray.constructor === PowerArray
+
+        No static inheritance in built-ins
+            Built-in objects have their own static methods, for instance
+             Object.keys, Array.isArray etc.
+
+            Native classes extend each other: Array.[[Prototype]] = Object but statics are an
+             exception. Built-in classes don’t inherit static properties from each other.
+*/
