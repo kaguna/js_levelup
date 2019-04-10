@@ -699,3 +699,27 @@
 
             // that's in addition to the "normal" prototype chain for object methods
             console.log(Coach.prototype.__proto__ === Person.prototype);
+
+/*
+    Private and protected properties and methods
+        Internal and external interface
+            In object-oriented programming, properties and methods are split into two groups:
+                - Internal interface – methods and properties, accessible from other methods of
+                  the class, but not from the outside.
+                - External interface – methods and properties, accessible also from outside
+                  the class.
+            In JavaScript, there are three types of properties and members:
+                - Public: accessible from anywhere. They comprise the external interface.
+                  Till now we were only using public properties and methods.
+                - Private: accessible only from inside the class. These are for the
+                 internal interface.
+                - Protected: accessible only from inside the class and those extending it.
+
+                Protected properties are usually prefixed with an underscore _.
+                Privates should start with #.
+
+                Protected fields are not implemented in Javascript on the language level,
+                 but in practice they are very convenient, so they are emulated.
+            NB: Right now, private fields are not well-supported among browsers, but
+                 can be polyfilled.
+*/
