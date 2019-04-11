@@ -751,3 +751,35 @@
             Native classes extend each other: Array.[[Prototype]] = Object but statics are an
              exception. Built-in classes don’t inherit static properties from each other.
 */
+
+/*
+    Class checking: "instanceof"
+        The instanceof operator allows to check whether an object belongs to a certain class.
+         It also takes inheritance into account.
+        
+        The instanceof operator
+            Syntax: obj instanceof Class
+            It returns true if obj belongs to the Class (or a class inheriting from it).
+            e.g.
+*/
+            class Person {};
+            let person = new Person();
+            console.log( person instanceof Person )// true
+
+           // And with built-in classes like Array:
+            let arr = [1, 2, 3];
+            console.log( arr instanceof Array ); // true
+            console.log( arr instanceof Object ); // true
+
+            // In the case of an inheritance, rabbit is an instance of the parent class as well:
+            class Person {}
+            class Coach extends Person {}
+            let coach = new Coach();
+            console.log(coach instanceof Person); // true
+/*
+        Bonus: Object toString for the type
+            - typeof works for primitives and returns a string.
+            - {}.toStringworks for primitives, built-in objects, objects with Symbol.toStringTag and
+            	string
+            - instanceof works for objects and returns true/false
+*/
