@@ -783,3 +783,55 @@
             	string
             - instanceof works for objects and returns true/false
 */
+
+/*
+    Mixins
+        In JavaScript we can only inherit from a single object. There can be only one [[Prototype]]
+         for an object. And a class may extend only one other class.
+
+        A mixin is a class that contains methods for use by other classes without having to be
+         the parent class of those other classes.
+        
+         A mixin example
+*/
+            // mixin
+            let giveViews = {
+                comparePlayer() {
+                console.log(`${this.name} is better than Messi.`);
+                },
+                giveCredit() {
+                console.log(`${this.name} has good dribbling skills.`);
+                }
+            };
+            
+            // usage:
+            class Player {
+                constructor(name) {
+                this.name = name;
+                }
+            }
+            
+            // copy the methods
+            Object.assign(Player.prototype, giveViews);
+            
+            // now Player can give views
+            new Player("James").comparePlayer(); // "James is better than Messi."
+            new Player("James").giveCredit(); // "James has good dribbling skills."
+/*
+        EventMixin
+            That is: an object should have a method to “generate an event” when something important
+             happens to it, and other objects should be able to “listen” to such events.
+
+            An event must have a name and, optionally, bundle some additional data.
+
+            e.g. 
+            A menu can generate the event "select" when a menu item is selected, and other objects
+             may want to get that information and react on that event.
+
+            We can use mixins as a way to augment a class by multiple behaviors, like event-handling.
+
+            NB:
+            Mixins may become a point of conflict if they occasionally overwrite native class
+             methods. So generally one should think well about the naming for a mixin, to
+              minimize such possibility.
+*/
