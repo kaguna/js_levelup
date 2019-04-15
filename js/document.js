@@ -58,3 +58,76 @@
                 4. comments – sometimes we can put the information there, it won’t be shown, but JS
                    can read it from the DOM.
 */
+
+/*
+    Walking the DOM
+        On top: documentElement and body
+            The topmost tree nodes are available directly as document properties:
+                - <html> = document.documentElement
+                    The topmost document node is document.documentElement. That’s DOM node of
+                     <html> tag.
+                - <body> = document.body
+                    Another widely used DOM node is the <body> element – document.body.
+                - <head> = document.head
+                    The <head> tag is available as document.head.
+
+        NB: In the DOM, the null value means “doesn’t exist” or “no such node”.
+
+        Children: childNodes, firstChild, lastChild
+            The are two terms used:
+                - Child nodes (or children) – elements that are direct children. In other words,
+                   they are nested exactly in the given one. For instance, <head> and <body> are
+                    children of <html> element.
+                - Descendants – all elements that are nested in the given one, including children,
+                   their children and so on.
+
+            The childNodes collection provides access to all child nodes, including text nodes.
+
+            elem.hasChildNodes() - a special function to check whether there are any child nodes
+
+        DOM collections
+            childNodes looks like an array but it’s not an array, but rather a collection.
+                - We can use for..of to iterate over it.
+                    That’s because it’s iterable (provides the Symbol.iterator property, as
+                     required).
+                - Array methods won’t work, because it’s not an array
+                    we can use Array.from to create a “real” array from the collection, if we want
+                     array methods.
+
+            DOM collections are read-only
+            Almost all DOM collections with minor exceptions are live i.e. they reflect the current
+             state of DOM.
+        
+        Siblings and the parent
+            Siblings are nodes that are children of the same parent. For instance, <head> and 
+            <body> are siblings:
+                - <body> is said to be the “next” or “right” sibling of <head>,
+                - <head> is said to be the “previous” or “left” sibling of <body>.
+            The parent is available as parentNode.
+
+            The next node in the same parent (next sibling) is nextSibling, and the previous one
+             is previousSibling.
+        
+        Element-only navigation
+            The links are similar to those given above, just with Element word inside:
+                - children – only those children that are element nodes.
+                - firstElementChild, lastElementChild – first and last element children.
+                - previousElementSibling, nextElementSibling – neighbour elements.
+                - parentElement – parent element.
+
+            <table id="table">
+            <tr>
+                <td>one</td>
+                <td>two</td>
+            </tr>
+            <tr>
+                <td>three</td>
+                <td>four</td>
+            </tr>
+            </table>
+
+            <script>
+            // get the content of the second row, first cell
+            console.log( table.rows[1].cells[0].innerHTML ) // "three"
+            </script>
+*/
