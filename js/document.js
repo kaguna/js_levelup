@@ -27,3 +27,34 @@
             Functions alert/confirm/prompt are also a part of BOM: they are directly not related to
              the document, but represent pure browser methods of communicating with the user. 
 */
+
+/*
+    DOM tree
+        The backbone of an HTML document are tags.
+
+        According to DOM, every HTML-tag and text inside a tag is an object.
+         Nested tags are called “children” of the enclosing one.
+
+        Tags are called element nodes (or just elements). Nested tags become children of the
+         enclosing ones. As a result we have a tree of elements: <html> is at the root,
+          then <head> and <body> are its children.
+        
+        Spaces and newlines – are totally valid characters, they form text nodes and become a part
+         of the DOM
+
+        Autocorrection
+            If the browser encounters malformed HTML, it automatically corrects it when making DOM.
+
+            Tables always have <tbody>
+                An interesting “special case” is tables. By the DOM specification they must have
+                 <tbody>, but HTML text may (officially) omit it. Then the browser creates <tbody>
+                  in DOM automatically.
+                
+        Other node types
+            There are 12 node types. In practice we usually work with 4 of them:
+                1. document – the “entry point” into DOM.
+                2. element nodes – HTML-tags, the tree building blocks.
+                3. text nodes – contain text.
+                4. comments – sometimes we can put the information there, it won’t be shown, but JS
+                   can read it from the DOM.
+*/
