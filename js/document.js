@@ -161,3 +161,109 @@
         All methods "getElementsBy*" return a live collection. Such collections always reflect the
          current state of the document and “auto-update” when it changes.
 */
+
+/*
+    Node properties: type, tag and contents
+        DOM node classes
+            The root of the hierarchy is EventTarget, that is inherited by Node, and other DOM
+             nodes inherit from it.
+
+            The classes are:
+                1. EventTarget – is the root “abstract” class. Objects of that class are never 
+                   created. It serves as a base, so that all DOM nodes support so-called “events”
+                2. Node – is also an “abstract” class, serving as a base for DOM nodes. It provides
+                   the core tree functionality: parentNode, nextSibling, childNodes
+                    Objects of Node class are never created. But there are concrete node classes
+                     that inherit from it, namely: Text for text nodes, Element for element nodes
+                      and more exotic ones like Comment for comment nodes.
+                3. Element – is a base class for DOM elements. It provides element-level navigation
+                   like nextElementSibling, children and searching methods like getElementsByTagName,
+                    querySelector.
+                    Element class serves as a base for more specific classes: SVGElement, XMLElement
+                     and HTMLElement
+                4. TMLElement – is finally the basic class for all HTML elements. It is inherited by
+                   various HTML elements:
+                   - HTMLInputElement – the class for <input> elements,
+                   - HTMLBodyElement – the class for <body> elements,
+                   - HTMLAnchorElement – the class for <a> elements
+                
+            Console.log(elem) shows the element DOM tree.
+            Console.dir(elem) shows the element as a DOM object, good to explore its properties.
+
+        The “nodeType” property
+            elem.nodeType == 1 for element nodes,
+            elem.nodeType == 3 for text nodes,
+            elem.nodeType == 9 for the document object
+
+            <body>
+            <script>
+            let elem = document.body;
+
+            // let's examine what it is?
+            console.log(elem.nodeType); // 1 => element
+
+            // and the first child is...
+            console.log(elem.firstChild.nodeType); // 3 => text
+
+            // for the document object, the type is 9
+            console.log( document.nodeType ); // 9
+            </script>
+            </body>
+
+        Tag: nodeName and tagName
+            For elements, tag name (uppercased unless XML-mode). For non-element nodes nodeName
+             describes what it is. Read-only.
+            Difference between tagName and nodeName:
+                1. The tagName property exists only for Element nodes.
+                2. The nodeName is defined for any Node:
+                    - for elements it means the same as tagName.
+                    - for other node types (text, comment, etc.) it has a string with the node type.
+
+        innerHTML: the contents
+            The HTML content of the element. Can be modified.
+            We can append “more HTML” by using elem.innerHTML+="something"
+        
+        outerHTML: full HTML of the element
+            The full HTML of the element. A write operation into elem.outerHTML does not touch elem
+             itself. Instead it gets replaced with the new HTML in the outer context.
+            The outerHTML assignment does not modify the DOM element, but extracts it from the outer
+             context and inserts a new piece of HTML instead of it.
+        
+        nodeValue/data: text node content
+            The content of a non-element node (text, comment). These two are almost the same, usually
+             we use data. Can be modified.
+
+            <body>
+            Hello
+            <!-- Comment -->
+            <script>
+                let text = document.body.firstChild;
+                console.log(text.data); // Hello
+
+                let comment = text.nextSibling;
+                console.log(comment.data); // Comment
+            </script>
+            </body>
+
+        textContent: pure text
+            The text inside the element, basically HTML minus all <tags>. Writing into it puts the
+             text inside the element, with all special characters and tags treated exactly as text.
+              Can safely insert user-generated text and protect from unwanted HTML insertions.
+
+            <div id="news">
+            <h1>Headline!</h1>
+            <p>Martians attack people!</p>
+            </div>
+
+            console.log(news.textContent);
+            // Headline!
+            // Martians attack people!
+
+        The “hidden” property
+            When set to true, does the same as CSS display:none.
+
+        More properties
+            DOM nodes also have other properties depending on their class. For instance, <input> 
+            elements (HTMLInputElement) support value, type, while <a> elements (HTMLAnchorElement)
+             support href etc. Most standard HTML attributes have a corresponding DOM property.
+*/
