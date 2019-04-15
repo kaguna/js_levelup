@@ -131,3 +131,33 @@
             console.log( table.rows[1].cells[0].innerHTML ) // "three"
             </script>
 */
+
+/*
+    Searching: getElement* and querySelector*
+        Method	Searches by...	
+        getElementById -Searches by- id	
+        getElementsByName -Searches by-	name
+        getElementsByTagName -Searches by- tag or '*'
+        getElementsByClassName -Searches by- class
+        querySelector -Searches by-	CSS-selector
+        querySelectorAll -Searches by- CSS-selector
+
+        NB: Methods getElementById and getElementsByName can only be called in the context of the
+            document: document.getElementById(...). But not on an element: elem.getElementById(...)
+             would cause an error.
+
+        Other methods can be called on elements too. For instance elem.querySelectorAll(...) will
+         search inside elem (in the DOM subtree).
+        
+        Besides that:
+            - There is elem.matches(css) to check if elem matches the given CSS selector.
+            - There is elem.closest(css) to look for the nearest ancestor that matches the given
+              CSS-selector. The elem itself is also checked.
+        
+        Method to check for the child-parent relationship:
+            elemA.contains(elemB) returns true if elemB is inside elemA (a descendant of elemA)
+             or when elemA==elemB.
+
+        All methods "getElementsBy*" return a live collection. Such collections always reflect the
+         current state of the document and “auto-update” when it changes.
+*/
