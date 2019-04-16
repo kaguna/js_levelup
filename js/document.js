@@ -267,3 +267,92 @@
             elements (HTMLInputElement) support value, type, while <a> elements (HTMLAnchorElement)
              support href etc. Most standard HTML attributes have a corresponding DOM property.
 */
+
+/*
+
+    Attributes and properties
+        DOM properties
+            Properties – is what’s in DOM objects.
+            i.e. let’s create a new property in document.body
+*/
+            document.body.details = {
+                name: 'James',
+                role: 'Midfielder'
+            };
+            console.log(document.body.details.role); // Midfielder
+/*
+        So, DOM properties and methods behave just like those of regular JavaScript objects:
+            - They can have any value.
+            - They are case-sensitive (write elem.nodeType, not elem.NoDeTyPe).
+
+        HTML attributes
+            Attributes – is what’s written in HTML.
+            So when an element has id or another standard attribute, the corresponding property gets
+             created. But that doesn’t happen if the attribute is non-standard.
+            
+            <body id="homepage" something="non-standard">
+            <script>
+                console.log(document.body.id); // homepage
+                // non-standard attribute does not yield a property
+                console.log(document.body.something); // undefined
+            </script>
+            </body>
+
+            Methods to work with attributes are:
+                - elem.hasAttribute(name) – to check for existence.
+                - elem.getAttribute(name) – to get the value.
+                - elem.setAttribute(name, value) – to set the value.
+                - elem.removeAttribute(name) – to remove the attribute.
+                - elem.attributes is a collection of all attributes.
+        
+        Property-attribute synchronization
+            <input>
+*/
+            let input = document.querySelector('input');
+            // attribute => property
+            input.setAttribute('id', 'id');
+            alert(input.id); // id (updated)
+
+            // property => attribute
+            input.id = 'newId';
+            alert(input.getAttribute('id')); // newId (updated)
+
+/*
+            In the example above:
+                - Changing the attribute value updates the property.
+                - But the property change does not affect the attribute.
+        
+        DOM properties are typed
+            DOM properties are not always strings. For instance, the input.checked property
+             (for checkboxes) is a boolean
+            e.g. 
+            <input id="input" type="checkbox" checked> checkbox>
+            <div id="div" style="color:red;font-size:120%">Hello</div>
+            The style attribute is a string, but the style property is an object
+
+        Non-standard attributes, dataset
+            Sometimes non-standard attributes are used to pass custom data from HTML to JavaScript,
+             or to “mark” HTML-elements for JavaScript.
+            
+            <!-- mark the div to show "name" here -->
+            <div show-info="name"></div>
+            <!-- and age here -->
+            <div show-info="age"></div>
+*/
+            // the code finds an element with the mark and shows what's requested
+            let user = {
+                name: "James",
+                age: 32
+            };
+
+            for(let div of document.querySelectorAll('[show-info]')) {
+                // insert the corresponding info into the field
+                let field = div.getAttribute('show-info');
+                div.innerHTML = user[field]; // James, then age
+            }
+/*
+            All attributes starting with “data-” are reserved for programmers’ use. They are
+             available in the dataset property.
+            Multiword attributes like data-order-state become camel-cased: dataset.orderState.
+            Using data-* attributes is a valid, safe way to pass custom data.
+*/
