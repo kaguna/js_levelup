@@ -356,3 +356,55 @@
             Multiword attributes like data-order-state become camel-cased: dataset.orderState.
             Using data-* attributes is a valid, safe way to pass custom data.
 */
+
+/*
+    Modifying the document
+        DOM modifications is the key to create “live” pages.
+
+        Methods to create new nodes:
+            - document.createElement(tag) – creates an element with the given tag
+            - document.createTextNode(value) – creates a text node (rarely used)
+            - elem.cloneNode(deep) – clones the element, if deep==true then with all descendants.
+*/
+            let div = document.createElement('div');
+            let textNode = document.createTextNode('This is me.');
+
+            let div = document.createElement('div');
+            div.className = "alert alert-success";
+            div.innerHTML = "<strong>Hi there!</strong> You've read an important message.";
+/*
+        Insertion and removal of nodes:
+            From the parent:
+                - parent.appendChild(node)
+                    Appends node as the last child of parentElem.
+                - parent.insertBefore(node, nextSibling)
+                    Inserts node before nextSibling into parentElem.
+                - parent.removeChild(node)
+
+                - parentElem.replaceChild(node, oldChild)
+                    Replaces oldChild with node among children of parentElem.
+            All these methods return node.
+
+        This set of methods provides more flexible insertions:
+            - node.append(...nodes or strings) – append nodes or strings at the end of node,
+            - node.prepend(...nodes or strings) – insert nodes or strings into the beginning of node,
+            - node.before(...nodes or strings) –- insert nodes or strings before the node,
+            - node.after(...nodes or strings) –- insert nodes or strings after the node,
+            - node.replaceWith(...nodes or strings) –- replaces node with the given nodes or strings.
+            - node.remove() –- remove the node.
+
+        Given a piece of HTML: elem.insertAdjacentHTML(where, html), inserts depending on where:
+            - "beforebegin" – insert html right before elem,
+            - "afterbegin" – insert html into elem, at the beginning,
+            - "beforeend" – insert html into elem, at the end,
+            - "afterend" – insert html right after elem.
+
+        The call elem.cloneNode(true) creates a “deep” clone of the element – with all attributes
+         and subelements. If we call elem.cloneNode(false), then the clone is made without child
+          elements.
+        
+        Also there are similar methods elem.insertAdjacentText and elem.insertAdjacentElement,
+         they insert text strings and elements, but they are rarely used.
+
+        document.write(html) -  appends HTML to the page before it has finished loading.
+*/
