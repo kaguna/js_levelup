@@ -444,3 +444,23 @@
                 and absolute, for instance: height:20px or font-size:16px. For geometry properties
                  resolved values may have a floating point, like width:50.5px.
 */
+
+/*
+    Element size and scrolling
+        Elements have the following geometry properties:
+            - offsetParent – is the nearest positioned ancestor or td, th, table, body.
+            - offsetLeft/offsetTop – coordinates relative to the upper-left edge of offsetParent.
+            - offsetWidth/offsetHeight – “outer” width/height of an element including borders.
+            - clientLeft/clientTop – the distance from the upper-left outer corner to its upper-left
+               inner corner. For left-to-right OS they are always the widths of left/top borders.
+                For right-to-left OS the vertical scrollbar is on the left so clientLeft includes its
+                 width too.
+            - clientWidth/clientHeight – the width/height of the content including paddings, but
+               without the scrollbar.
+            - scrollWidth/scrollHeight – the width/height of the content including the scrolled
+             out parts. Also includes paddings, but not the scrollbar.
+            - scrollLeft/scrollTop – width/height of the scrolled out part of the element, starting
+              from its upper-left corner.
+        All properties are read-only except scrollLeft/scrollTop. They make the browser scroll the
+         element if changed.
+*/
