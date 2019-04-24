@@ -408,3 +408,39 @@
 
         document.write(html) -  appends HTML to the page before it has finished loading.
 */
+
+/*
+    Styles and classes
+        To manage classes, there are two DOM properties:
+            - className – the string value, good to manage the whole set of classes.
+            - classList – the object with methods add/remove/toggle/contains, good for
+              individual classes.
+
+        Methods of classList:
+            - elem.classList.add/remove("class") – adds/removes the class.
+            - elem.classList.toggle("class") – if the class exists, then removes it,
+               otherwise adds it.
+            - elem.classList.contains("class") – returns true/false, checks for the given class.
+
+        Element style
+            The property elem.style is an object that corresponds to what’s written in the "style"
+             attribute. Setting elem.style.width="100px" works as if we had in the attribute
+              style="width:100px".
+
+        To change the styles:
+            - The style property is an object with camelCased styles. Reading and writing to it has
+             the same meaning as modifying individual properties in the "style" attribute. To see
+              how to apply important and other rare stuff – there’s a list of methods at MDN.
+            - The style.cssText property corresponds to the whole "style" attribute, the full string
+               of styles.
+
+        There are two concepts in CSS:
+            - A computed style value is the value after all CSS rules and CSS inheritance is
+               applied, as the result of the CSS cascade. It can look like height:1em or
+                font-size:125%.
+
+            - A resolved style value is the one finally applied to the element. Values like 1em or
+               125% are relative. The browser takes the computed value and makes all units fixed
+                and absolute, for instance: height:20px or font-size:16px. For geometry properties
+                 resolved values may have a floating point, like width:50.5px.
+*/
