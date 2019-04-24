@@ -486,3 +486,22 @@
                 - elem.scrollIntoView(top) – scroll to make elem visible
                    (align with the top/bottom of the window).
 */
+
+/*
+    Coordinates
+        Any point on the page has coordinates:
+            - Relative to the window – elem.getBoundingClientRect().
+            - Relative to the document – elem.getBoundingClientRect() plus the current page scroll.
+        
+        elementFromPoint(x, y)
+            The call to document.elementFromPoint(x, y) returns the most nested element at window
+             coordinates (x, y).
+
+        For out-of-window coordinates the elementFromPoint returns null
+
+        Window coordinates are great to use with position:fixed, and document coordinates do well
+         with position:absolute.
+
+        Both coordinate systems have their “pro” and “contra”, there are times we need one or the
+         other one, just like CSS position absolute and fixed.
+*/
