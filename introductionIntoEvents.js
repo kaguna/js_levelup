@@ -117,3 +117,26 @@
               on events in any place of the container, no matter if they interest us or not. But
                usually the load is negligible, so we don’t take it into account.     
 */
+
+/*
+    Browser default actions
+        There are many default browser actions:
+            - mousedown – starts the selection (move the mouse to select).
+            - click on <input type="checkbox"> – checks/unchecks the input.
+            - submit – clicking an <input type="submit"> or hitting Enter inside a form field
+              causes this event to happen, and the browser submits the form after it.
+            - wheel – rolling a mouse wheel event has scrolling as the default action.
+            - keydown – pressing a key may lead to adding a character into a field, or other actions.
+            - contextmenu – the event happens on a right-click, the action is to show the browser
+              context menu.
+
+        To prevent a default action – use either event.preventDefault() or return false. The second
+         method works only for handlers assigned with on<event>.
+        
+        The passive: true option of addEventListener tells the browser that the action is not going
+         to be prevented. That’s useful for some mobile events, like touchstart and touchmove, to tell
+          the browser that it should not wait for all handlers to finish before scrolling.
+
+        If the default action was prevented, the value of event.defaultPrevented becomes true,
+         otherwise it’s false.
+*/
