@@ -140,3 +140,28 @@
         If the default action was prevented, the value of event.defaultPrevented becomes true,
          otherwise it’s false.
 */
+
+/*
+    Dispatching custom events
+        Event constructor
+            We can create Event objects like this:
+                let event = new Event(event type[, options]);
+
+                - event type – may be any string, like "click" or our own like "hey-ho!".
+                - options – the object with two optional properties:
+                - bubbles: true/false – if true, then the event bubbles.
+                - cancelable: true/false – if true, then the “default action” may be prevented.
+                  Later we’ll see what it means for custom events.
+                By default both are false: {bubbles: false, cancelable: false}.
+
+        dispatchEvent
+            After an event object is created, we should “run” it on an element using the call
+             elem.dispatchEvent(event).
+        
+        Other constructors of native events like MouseEvent, KeyboardEvent and so on accept properties
+         specific to that event type. For instance, clientX for mouse events.
+        
+        For custom events we should use CustomEvent constructor. It has an additional option named
+         detail, we should assign the event-specific data to it. Then all handlers can access it as
+          event.detail.
+*/
