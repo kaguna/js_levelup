@@ -73,3 +73,17 @@
                 
                 Key(Z) - event.key(z (lowercase)) - event.code(KeyZ)
 */
+
+/*
+    Scrolling
+        Scroll events allow to react on a page or element scrolling. There are quite a few good
+         things we can do here.
+            For instance:
+                - Show/hide additional controls or information depending on where in the document
+                  the user is.
+                - Load more data when the user scrolls down till the end of the page.
+
+        Prevent scrolling
+            We can’t prevent scrolling by using event.preventDefault() in onscroll listener,
+             because it triggers after the scroll has already happened.
+*/
