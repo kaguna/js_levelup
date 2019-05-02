@@ -46,3 +46,30 @@
               child element. They only track whether the mouse comes inside and outside the element
                as a whole.
 */
+
+/*
+    Drag'n'Drop with mouse events
+        The key components:
+            - Events flow: ball.mousedown → document.mousemove → ball.mouseup
+              (cancel native ondragstart).
+            - At the drag start – remember the initial shift of the pointer relative to the element:
+              shiftX/shiftY and keep it during the dragging.
+            - Detect droppable elements under the pointer using document.elementFromPoint.
+
+        We can lay a lot on this foundation.
+            - On mouseup we can finalize the drop: change data, move elements around.
+            - We can highlight the elements we’re flying over.
+            - We can limit dragging by a certain area or direction.
+            - We can use event delegation for mousedown/up. A large-area event handler that checks
+              event.target can manage Drag’n’Drop for hundreds of elements.
+        
+        Keyboard: keydown and keyup
+            The keydown events happens when a key is pressed down, and then keyup –
+             when it’s released.
+
+            event.code and event.key
+                The key property of the event object allows to get the character, while the code
+                 property of the event object allows to get the “physical key code”.
+                
+                Key(Z) - event.key(z (lowercase)) - event.code(KeyZ)
+*/
