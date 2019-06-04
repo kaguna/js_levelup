@@ -245,3 +245,68 @@ jQuery Effects
             - outerWidth() - returns the width of an element (includes padding and border).
             - outerHeight() -  returns the height of an element (includes padding and border).         
 */
+/*
+    jQuery Traversing
+*/
+/*
+        Traversing means move through and used to find( or select) HTML elements based on their
+         relation to other elements.
+        
+        Traversing the DOM
+            - jQuery provides a variety of methods that allow us to traverse the DOM.
+            - The largest category of traversal methods are tree-traversal.
+
+        1. Ancestors
+            Three useful jQuery methods for traversing up the DOM tree are:
+                - parent() - returns the direct parent element of the selected element.
+
+                    $(document).ready(function(){
+                        $("span").parent();
+                    });
+
+                - parents() -  returns all ancestor elements of the selected element, all the way
+                  up to the document's root element (<html>).
+
+                  $(document).ready(function(){
+                        $("span").parents("ul");
+                    });
+
+                - parentsUntil() - returns all ancestor elements between two given arguments.
+                    The following example returns all ancestor elements between a
+                     <span> and a <div> element
+
+                    $(document).ready(function(){
+                        $("span").parentsUntil("div");
+                    });
+        
+        2. Descendants
+            - A descendant is a child, grandchild, great-grandchild, and so on.
+            - Two useful jQuery methods for traversing down the DOM tree are:
+                - children() - returns all direct children of the selected element.
+                - find() - returns descendant elements of the selected element, all the way down
+                           to the last descendant.
+        
+        3. Siblings
+            - There are many useful jQuery methods for traversing sideways in the DOM tree:
+                - siblings() - returns all sibling elements of the selected element.
+                - next() - returns the next sibling element of the selected element.
+                - nextAll() - returns all next sibling elements of the selected element.
+                - nextUntil() - returns all next sibling elements of the selected element.
+                - prev() - returns all next sibling elements between two given arguments.
+                - prevAll() - they return previous sibling elements (traverse backwards along
+                               sibling elements in the DOM tree, instead of forward).
+                - prevUntil() - they return previous sibling elements (traverse backwards along
+                                sibling elements in the DOM tree, instead of forward).
+
+        4. Filtering
+            The most basic filtering methods are first(), last() and eq(), which allow you to
+             select a specific element based on its position in a group of elements.
+            
+            Other filtering methods, like filter() and not() allow you to select elements that
+             match, or do not match, a certain criteria.
+            
+            - first() - returns the first element of the specified elements.
+            - last() - returns the last element of the specified elements.
+            - eq() - returns an element with a specific index number of the selected elements.
+            - not() - returns all elements that do not match the criteria.
+*/
